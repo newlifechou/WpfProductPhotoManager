@@ -11,6 +11,19 @@ namespace WpfProductPhotoManager.Services
     public class PhotoService
     {
         private string outputFolder;
+        public string OutputFolder
+        {
+            get
+            {
+                return outputFolder;
+            }
+            set
+            {
+                outputFolder = value;
+                Properties.Settings.Default.outputfolder = value;
+                Properties.Settings.Default.Save();
+            }
+        }
         public PhotoService()
         {
             outputFolder = Properties.Settings.Default.outputfolder;

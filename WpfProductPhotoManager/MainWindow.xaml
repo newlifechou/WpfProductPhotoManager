@@ -9,8 +9,8 @@
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
             <Grid>
                 <Grid.RowDefinitions>
@@ -20,22 +20,22 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="请框选并拖动对应一组图片文件到下面方框" Style="{DynamicResource MaterialDesignCaptionTextBlock}"
                        Margin="5"/>
-                <DataGrid Style="{DynamicResource MaterialDesignDataGrid}" 
-                    Grid.Row="1">
+                <DataGrid Style="{DynamicResource MaterialDesignDataGrid}" AllowDrop="True" Drop="DataGrid_Drop"
+                    Grid.Row="1" Name="DgInputs" IsReadOnly="True" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="原始文件名称"/>
-                        <DataGridTextColumn Header="创建时间"/>
-                        <DataGridCheckBoxColumn Header="已复制"/>
-                        <DataGridTextColumn Header="复制结果"/>
-                        <DataGridTextColumn Header="新文件名称"/>
-                        <DataGridCheckBoxColumn Header="已上传"/>
-                        <DataGridCheckBoxColumn Header="上传结果"/>
+                        <DataGridTextColumn Header="原始文件名称" Binding="{Binding DisplayFileName}"/>
+                        <DataGridTextColumn Header="创建时间" Binding="{Binding CreatedTime}"/>
+                        <DataGridCheckBoxColumn Header="已复制" Binding="{Binding IsCopied}"/>
+                        <DataGridTextColumn Header="复制结果" Binding="{Binding CopyError}"/>
+                        <DataGridTextColumn Header="新文件名称" Binding="{Binding NewFileName}"/>
+                        <DataGridCheckBoxColumn Header="已上传" Binding="{Binding IsUploaded}"/>
+                        <DataGridTextColumn Header="上传结果" Binding="{Binding UploadError}"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
                     <Button Style="{DynamicResource MaterialDesignOutlinedButton}" Content="输出目录"/>
                     <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}" Text="OutputPath"
-                               Margin="5 0 0 0"/>
+                               Margin="5 0 0 0" Name="TxtOutputPath"/>
                 </StackPanel>
             </Grid>
         <Grid Grid.Column="1">
