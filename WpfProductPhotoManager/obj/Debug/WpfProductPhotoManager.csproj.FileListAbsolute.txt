@@ -21,3 +21,5 @@ C:\Users\newli\source\dotnet\WpfProductPhotoManager\WpfProductPhotoManager\bin\D
 C:\Users\newli\source\dotnet\WpfProductPhotoManager\WpfProductPhotoManager\bin\Debug\MaterialDesignThemes.Wpf.xml
 C:\Users\newli\source\dotnet\WpfProductPhotoManager\WpfProductPhotoManager\obj\Debug\App.baml
 C:\Users\newli\source\dotnet\WpfProductPhotoManager\WpfProductPhotoManager\obj\Debug\WpfProductPhotoManager.csproj.CopyComplete
+C:\Users\newli\source\dotnet\WpfProductPhotoManager\WpfProductPhotoManager\obj\Debug\ScanWindow.g.cs
+C:\Users\newli\source\dotnet\WpfProductPhotoManager\WpfProductPhotoManager\obj\Debug\ScanWindow.baml

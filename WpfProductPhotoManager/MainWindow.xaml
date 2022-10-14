@@ -12,11 +12,11 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Border Margin="5" BorderBrush="Gray" BorderThickness="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="请框选并拖动对应一组图片文件到下面方框" Style="{DynamicResource MaterialDesignCaptionTextBlock}"
                        Margin="5"/>
@@ -32,8 +32,12 @@
                         <DataGridCheckBoxColumn Header="上传结果"/>
                     </DataGrid.Columns>
                 </DataGrid>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
+                    <Button Style="{DynamicResource MaterialDesignOutlinedButton}" Content="输出目录"/>
+                    <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}" Text="OutputPath"
+                               Margin="5 0 0 0"/>
+                </StackPanel>
             </Grid>
-        </Border>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
