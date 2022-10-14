@@ -14,6 +14,8 @@ namespace WpfProductPhotoManager.Models
             IsUploaded = false;
         }
         public string OrignalFileName { get; set; }
+
+        public string DisplayFileName { get; set; }
         public DateTime CreatedTime { get; set; }
         public bool IsCopied { get; set; }
         public string CopyError { get; set; }
