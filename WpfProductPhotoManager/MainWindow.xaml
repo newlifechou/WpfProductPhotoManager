@@ -37,6 +37,7 @@
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="auto"/>
@@ -46,7 +47,9 @@
             </Grid.RowDefinitions>
             <Button Content="产品ID扫描输入" Grid.Row="0" Style="{DynamicResource MaterialDesignOutlinedLightButton}" 
                     Margin="5"/>
-            <Border Margin="5" BorderBrush="Gray" BorderThickness="1" Grid.Row="1">
+            <Button Content="导入PMS最近30天的ID" Grid.Row="1" Style="{DynamicResource MaterialDesignOutlinedLightButton}" 
+                    Margin="5"/>
+            <Border Margin="5" BorderBrush="Gray" BorderThickness="1" Grid.Row="2">
                 <ListBox Style="{StaticResource MaterialDesignListBox}">
                     <ListBoxItem>Test Data</ListBoxItem>
                     <ListBoxItem>Test Data</ListBoxItem>
@@ -58,24 +61,24 @@
                     <ListBoxItem>Test Data</ListBoxItem>
                 </ListBox>
             </Border>
-            <ComboBox Grid.Row="2" IsEditable="True" Style="{DynamicResource MaterialDesignComboBox}" Margin="5">
-                <ComboBoxItem>Hello</ComboBoxItem>
-                <ComboBoxItem>Hello</ComboBoxItem>
-                <ComboBoxItem>Hello</ComboBoxItem>
-                <ComboBoxItem>Hello</ComboBoxItem>
-            </ComboBox>
             <ComboBox Grid.Row="3" IsEditable="True" Style="{DynamicResource MaterialDesignComboBox}" Margin="5">
                 <ComboBoxItem>Hello</ComboBoxItem>
                 <ComboBoxItem>Hello</ComboBoxItem>
                 <ComboBoxItem>Hello</ComboBoxItem>
                 <ComboBoxItem>Hello</ComboBoxItem>
             </ComboBox>
-            <TextBlock Grid.Row="4" Text="新名称内容" Style="{DynamicResource MaterialDesignBody1TextBlock}"
+            <ComboBox Grid.Row="4" IsEditable="True" Style="{DynamicResource MaterialDesignComboBox}" Margin="5">
+                <ComboBoxItem>Hello</ComboBoxItem>
+                <ComboBoxItem>Hello</ComboBoxItem>
+                <ComboBoxItem>Hello</ComboBoxItem>
+                <ComboBoxItem>Hello</ComboBoxItem>
+            </ComboBox>
+            <TextBlock Grid.Row="5" Text="新名称内容" Style="{DynamicResource MaterialDesignBody1TextBlock}"
                        Margin="5"/>
-            <Button Content="复制并重命名" Grid.Row="5" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
-                    Margin="5" Height="50"/>
-            <Button Content="上传到FTP服务器" Grid.Row="6" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
-                    Margin="5" Height="50"/>
+            <Button Content="复制并重命名" Grid.Row="6" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
+                    Margin="5"/>
+            <Button Content="上传到FTP服务器" Grid.Row="7" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
+                    Margin="5"/>
         </Grid>
     </Grid>
 </Window>
