@@ -95,6 +95,20 @@ namespace WpfProductPhotoManager
 
         private void DataGrid_Drop(object sender, DragEventArgs e)
         {
+            if (inputFiles.Count > 0)
+            {
+                if (!photoService.CheckState(inputFiles))
+                {
+                    MessageBox.Show("当前工作表还未处理");
+                    return;
+                }
+                if (!ftpService.CheckState(inputFiles))
+                {
+                    MessageBox.Show("当前工作表还未上传");
+                    return;
+                }
+            }
+
             inputFiles.Clear();
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             foreach (var file in files)
@@ -138,7 +152,14 @@ namespace WpfProductPhotoManager
         {
             TxtIDFilter.Text = "";
             productIds.Clear();
-            productIds = pmsService.GetProductIds().OrderByDescending(i => i).ToList();
+            try
+            {
+                productIds = pmsService.GetProductIds().OrderByDescending(i => i).ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             productIdsFilter = productIds;
             SetLstProducts();
         }

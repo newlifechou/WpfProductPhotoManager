@@ -78,7 +78,7 @@
             </Grid.RowDefinitions>
             <Button Content="产品ID扫描输入" Grid.Row="0" Style="{DynamicResource MaterialDesignOutlinedLightButton}" 
                     Margin="5" Name="BtnScan" Click="BtnScan_Click"/>
-            <Button Content="导入PMS最近30天的ID" Grid.Row="1" Style="{DynamicResource MaterialDesignOutlinedLightButton}" 
+            <Button Content="导入PMS最近500个ID" Grid.Row="1" Style="{DynamicResource MaterialDesignOutlinedLightButton}" 
                     Margin="5" Name="BtnImport" Click="BtnImport_Click"/>
             <TextBlock Grid.Row="2" Style="{StaticResource MaterialDesignCaptionTextBlock}" Text="依次设置下面的ID,分类和关键词[可选]"
                        TextWrapping="WrapWithOverflow" Margin="5"/>
@@ -94,7 +94,7 @@
             </ComboBox>
             <TextBlock Grid.Row="7" Text="新名称内容" Style="{DynamicResource MaterialDesignBody1TextBlock}"
                        Margin="5" Name="TxtCurrentOutputFileNamePrefix" FontWeight="Bold" ToolTip="当前名称前缀,格式为ID_类别_关键词[可选]"/>
-            <Button Content="复制并重命名" Grid.Row="8" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
+            <Button Content="规范命名处理" Grid.Row="8" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
                     Margin="5" Name="BtnCopyAndReName" Click="BtnCopyAndReName_Click"/>
             <CheckBox Grid.Row="9" Content="上传模式" Style="{DynamicResource MaterialDesignCheckBox}"
                       Margin="5" Name="ChkUploadMode" ToolTip="勾选为覆盖模式，不勾选为跳过模式"/>

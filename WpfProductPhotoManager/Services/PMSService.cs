@@ -12,9 +12,9 @@ namespace WpfProductPhotoManager.Services
         {
             Random random = new Random();
             var ids = new List<string>();
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 500; i++)
             {
-                ids.Add($"{DateTime.Today.AddDays(random.Next(-30, 0)).ToString("yyMMdd")}-{(char)('A' + random.Next(0, 7))}-{random.Next(1, 4)}");
+                ids.Add($"{DateTime.Today.AddDays(random.Next(-365, 0)).ToString("yyMMdd")}-{(char)('A' + random.Next(0, 7))}-{random.Next(1, 4)}");
             }
             return ids;
         }
