@@ -35,7 +35,7 @@ namespace WpfProductPhotoManager
 
 
             //加载已保存文件
-            //LoadWorkList();
+            LoadWorkList();
         }
 
         private PhotoService photoService;

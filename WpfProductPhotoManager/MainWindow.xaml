@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfProductPhotoManager"
         mc:Ignorable="d"
+        Icon="pictures.png"
         Title="产品照片管理器 v1.0 designed by xszhou" Height="600" Width="1000"
         WindowStartupLocation="CenterScreen">
     <Grid Background="White">
