@@ -79,6 +79,12 @@ namespace WpfProductPhotoManager.Services
                     count++;
                 } while (File.Exists(outputFileName));
 
+                if (!File.Exists(item.OrignalFileName))
+                {
+                    item.IsCopied = false;
+                    item.CopyError = "文件不存在";
+                    continue;
+                }
 
                 File.Copy(item.OrignalFileName, outputFileName, true);
                 item.IsCopied = true;
