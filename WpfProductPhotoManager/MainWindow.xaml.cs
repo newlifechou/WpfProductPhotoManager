@@ -190,7 +190,15 @@ namespace WpfProductPhotoManager
                     return;
                 }
             }
-            photoService.CopyPhoto(inputFiles);
+            try
+            {
+                photoService.CopyPhoto(inputFiles);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             SetDgInputs();
             MessageBox.Show("复制和规范重命名成功");
             SaveWorkList();
@@ -204,16 +212,24 @@ namespace WpfProductPhotoManager
                 return;
             }
 
-            if (ftpService.CheckState(inputFiles))
+            try
             {
-                if (MessageBox.Show("工作列表中有文件已被上传,是否再次上传?", "请问", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                if (ftpService.CheckState(inputFiles))
                 {
-                    return;
+                    if (MessageBox.Show("工作列表中有文件已被上传,是否再次上传?", "请问", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    {
+                        return;
+                    }
                 }
+
+                ftpService.OverrideMode = (bool)ChkUploadMode.IsChecked;
+                ftpService.UploadFiles(inputFiles);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            ftpService.OverrideMode = (bool)ChkUploadMode.IsChecked;
-            ftpService.UploadFiles(inputFiles);
             SetDgInputs();
             MessageBox.Show("文件上传成功");
             SaveWorkList();
