@@ -134,6 +134,7 @@ namespace WpfProductPhotoManager
             inputFiles = inputFiles.OrderBy(i => i.DisplayFileName).ToList();
             DgInputs.ItemsSource = null;
             DgInputs.ItemsSource = inputFiles;
+            ChipTotalItems.Content = $"共{inputFiles.Count}项";
         }
 
         private void BtnScan_Click(object sender, RoutedEventArgs e)
