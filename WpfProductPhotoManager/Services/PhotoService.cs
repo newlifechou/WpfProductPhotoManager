@@ -79,10 +79,11 @@ namespace WpfProductPhotoManager.Services
                     count++;
                 } while (File.Exists(outputFileName));
 
+
+                File.Copy(item.OrignalFileName, outputFileName, true);
                 item.IsCopied = true;
                 item.NewFileName = outputFileName;
                 item.NewDisplayFileName = Path.GetFileName(outputFileName);
-                File.Copy(item.OrignalFileName, outputFileName, true);
                 item.CopyError = "成功";
 
                 item.IsUploaded = false;

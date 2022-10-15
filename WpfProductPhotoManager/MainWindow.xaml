@@ -92,7 +92,7 @@
                       Name="CboKeyword" TextBoxBase.TextChanged="CboKeyword_TextChanged" ToolTip="关键词">
             </ComboBox>
             <TextBlock Grid.Row="7" Text="新名称内容" Style="{DynamicResource MaterialDesignBody1TextBlock}"
-                       Margin="5" Name="TxtCurrentOutputFileNamePrefix" FontWeight="Bold" ToolTip="当前名称前缀"/>
+                       Margin="5" Name="TxtCurrentOutputFileNamePrefix" FontWeight="Bold" ToolTip="当前名称前缀,格式为ID_类别_关键词[可选]"/>
             <Button Content="复制并重命名" Grid.Row="8" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
                     Margin="5" Name="BtnCopyAndReName" Click="BtnCopyAndReName_Click"/>
             <CheckBox Grid.Row="9" Content="上传模式" Style="{DynamicResource MaterialDesignCheckBox}"

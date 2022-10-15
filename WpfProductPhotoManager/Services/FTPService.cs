@@ -69,12 +69,21 @@ namespace WpfProductPhotoManager.Services
                 }
 
                 string remoteFilePath = $"/home/pi/{serverFolder}/{item.NewDisplayFileName}";
+                string uploadmesasge = "";
                 if (OverrideMode)
                 {
+                    if (client.FileExists(remoteFilePath))
+                    {
+                        uploadmesasge = "上传成功，服务器存在同名文件，已覆盖";
+                    }
                     client.UploadFile(item.NewFileName, remoteFilePath, FtpRemoteExists.Overwrite);
                 }
                 else
                 {
+                    if (client.FileExists(remoteFilePath))
+                    {
+                        uploadmesasge = "上传成功，服务器存在同名文件，已跳过";
+                    }
                     client.UploadFile(item.NewFileName, remoteFilePath, FtpRemoteExists.Skip);
                 }
                 item.IsUploaded = true;
