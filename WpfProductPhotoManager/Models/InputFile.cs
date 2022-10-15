@@ -20,6 +20,7 @@ namespace WpfProductPhotoManager.Models
         public bool IsCopied { get; set; }
         public string CopyError { get; set; }
         public string NewFileName { get; set; }
+        public string NewDisplayFileName { get; set; }
 
         public bool IsUploaded { get; set; }
         public string UploadError { get; set; }

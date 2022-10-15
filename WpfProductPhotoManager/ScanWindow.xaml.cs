@@ -23,5 +23,15 @@ namespace WpfProductPhotoManager
         {
             InitializeComponent();
         }
+
+        private void BtnOK_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(TxtProductID.Text))
+                return;
+            string[] lines = TxtProductID.Text.Split(new string[] { "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
+            ProductIDList.AddRange(lines);
+            DialogResult = true;
+        }
+        public List<string> ProductIDList { get; set; } = new List<string>();
     }
 }

@@ -24,6 +24,9 @@ namespace WpfProductPhotoManager.Services
                 Properties.Settings.Default.Save();
             }
         }
+
+        private string workListFileName;
+
         public PhotoService()
         {
             outputFolder = Properties.Settings.Default.outputfolder;
@@ -31,12 +34,19 @@ namespace WpfProductPhotoManager.Services
             {
                 outputFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             }
-
+            workListFileName = Path.Combine(Environment.CurrentDirectory, "worklist.json");
         }
 
 
-        public string outputFilePrefix;
+        private string outputFilePrefix;
 
+        public string OutputFilePrefix
+        {
+            get
+            {
+                return outputFilePrefix;
+            }
+        }
         public void SetOutputFilePrefix(string productid, string category, string keyword)
         {
             outputFilePrefix = $"{productid}_{category}";
@@ -56,6 +66,7 @@ namespace WpfProductPhotoManager.Services
             foreach (var item in files)
             {
                 var outputFileName = "";
+
                 do
                 {
                     string filename= $"{outputFilePrefix}_{count}.jpg";
@@ -63,7 +74,11 @@ namespace WpfProductPhotoManager.Services
                     count++;
                 } while (File.Exists(outputFileName));
 
+                item.IsCopied = true;
+                item.NewFileName = outputFileName;
+                item.NewDisplayFileName=Path.GetFileName(outputFileName);
                 File.Copy(item.OrignalFileName, outputFileName, true);
+                item.CopyError = "成功";
             }
         }
 
@@ -76,5 +91,20 @@ namespace WpfProductPhotoManager.Services
             return Directory.GetFiles(outputFolder, $"{productid}*");
         }
 
+
+
+        public void SaveWorkList(string json)
+        {
+            if (string.IsNullOrEmpty(json))
+                return;
+            File.WriteAllText(workListFileName, json);
+        }
+
+        public string LoadWorkList()
+        {
+            if (!File.Exists(workListFileName))
+                return "";
+            return File.ReadAllText(workListFileName);
+        }
     }
 }

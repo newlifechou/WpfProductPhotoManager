@@ -7,37 +7,56 @@
         mc:Ignorable="d"
         Title="产品照片管理器 v1.0" Height="600" Width="1000"
         WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
                 <TextBlock Text="请框选并拖动对应一组图片文件到下面方框" Style="{DynamicResource MaterialDesignCaptionTextBlock}"
-                       Margin="5"/>
-                <DataGrid Style="{DynamicResource MaterialDesignDataGrid}" AllowDrop="True" Drop="DataGrid_Drop"
-                    Grid.Row="1" Name="DgInputs" IsReadOnly="True" AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="原始文件名称" Binding="{Binding DisplayFileName}"/>
-                        <DataGridTextColumn Header="创建时间" Binding="{Binding CreatedTime}"/>
-                        <DataGridCheckBoxColumn Header="已复制" Binding="{Binding IsCopied}"/>
-                        <DataGridTextColumn Header="复制结果" Binding="{Binding CopyError}"/>
-                        <DataGridTextColumn Header="新文件名称" Binding="{Binding NewFileName}"/>
-                        <DataGridCheckBoxColumn Header="已上传" Binding="{Binding IsUploaded}"/>
-                        <DataGridTextColumn Header="上传结果" Binding="{Binding UploadError}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
-                    <Button Style="{DynamicResource MaterialDesignOutlinedButton}" Content="输出目录"/>
-                    <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}" Text="OutputPath"
-                               Margin="5 0 0 0" Name="TxtOutputPath"/>
+                       Margin="5" Foreground="Green" VerticalAlignment="Center"/>
+                <StackPanel Orientation='Horizontal' HorizontalAlignment="Right" Grid.Column="1">
+                    <Button Content="清空工作列表" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
+                            Name="BtnClearList" 
+                            Click="BtnClearList_Click"/>
+                    <Button Content="保存工作列表" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
+                            Name="BtnSaveWorkList"
+                            Click="BtnSaveWorkList_Click"/>
+                    <Button Content="加载工作列表" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
+                            Name="BtnLoadWorkList"
+                            Click="BtnLoadWorkList_Click"/>
                 </StackPanel>
             </Grid>
+            <DataGrid Style="{DynamicResource MaterialDesignDataGrid}" AllowDrop="True" Drop="DataGrid_Drop"
+                    Grid.Row="1" Name="DgInputs" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="原始文件名称" Binding="{Binding DisplayFileName}" Width="150"/>
+                    <DataGridTextColumn Header="创建时间" Binding="{Binding CreatedTime,StringFormat={}{0:yyMMdd HH:mm:ss}}"/>
+                    <DataGridCheckBoxColumn Header="已复制" Binding="{Binding IsCopied}"/>
+                    <DataGridTextColumn Header="复制结果" Binding="{Binding CopyError}"/>
+                    <DataGridTextColumn Header="新文件名称" Binding="{Binding NewDisplayFileName}"/>
+                    <DataGridCheckBoxColumn Header="已上传" Binding="{Binding IsUploaded}"/>
+                    <DataGridTextColumn Header="上传结果" Binding="{Binding UploadError}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
+                <Button Style="{DynamicResource MaterialDesignOutlinedButton}" Content="输出目录" Name="BtnOutputFolderSet"
+                            Click="BtnOutputFolderSet_Click"/>
+                <Button Style="{DynamicResource MaterialDesignFlatButton}" Content="OutputFolder"
+                               Margin="5 0 0 0" Name="BtnOutputPath" VerticalAlignment="Center"
+                        Click="BtnOutputPath_Click"/>
+            </StackPanel>
+        </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -47,42 +66,31 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Button Content="产品ID扫描输入" Grid.Row="0" Style="{DynamicResource MaterialDesignOutlinedLightButton}" 
-                    Margin="5"/>
+                    Margin="5" Name="BtnScan" Click="BtnScan_Click"/>
             <Button Content="导入PMS最近30天的ID" Grid.Row="1" Style="{DynamicResource MaterialDesignOutlinedLightButton}" 
-                    Margin="5"/>
+                    Margin="5" Name="BtnImport"/>
             <Border Margin="5" BorderBrush="Gray" BorderThickness="1" Grid.Row="2">
-                <ListBox Style="{StaticResource MaterialDesignListBox}">
-                    <ListBoxItem>Test Data</ListBoxItem>
-                    <ListBoxItem>Test Data</ListBoxItem>
-                    <ListBoxItem>Test Data</ListBoxItem>
-                    <ListBoxItem>Test Data</ListBoxItem>
-                    <ListBoxItem>Test Data</ListBoxItem>
-                    <ListBoxItem>Test Data</ListBoxItem>
-                    <ListBoxItem>Test Data</ListBoxItem>
-                    <ListBoxItem>Test Data</ListBoxItem>
+                <ListBox Style="{StaticResource MaterialDesignListBox}" Name="LstProductIds" SelectionChanged="LstProductIds_SelectionChanged">
                 </ListBox>
             </Border>
-            <ComboBox Grid.Row="3" IsEditable="True" Style="{DynamicResource MaterialDesignComboBox}" Margin="5">
-                <ComboBoxItem>Hello</ComboBoxItem>
-                <ComboBoxItem>Hello</ComboBoxItem>
-                <ComboBoxItem>Hello</ComboBoxItem>
-                <ComboBoxItem>Hello</ComboBoxItem>
+            <ComboBox Grid.Row="3" IsEditable="True" Style="{DynamicResource MaterialDesignComboBox}" Margin="5"
+                      Name="CboCategory" TextBoxBase.TextChanged="CboCategory_TextChanged">
             </ComboBox>
-            <ComboBox Grid.Row="4" IsEditable="True" Style="{DynamicResource MaterialDesignComboBox}" Margin="5">
-                <ComboBoxItem>Hello</ComboBoxItem>
-                <ComboBoxItem>Hello</ComboBoxItem>
-                <ComboBoxItem>Hello</ComboBoxItem>
-                <ComboBoxItem>Hello</ComboBoxItem>
+            <ComboBox Grid.Row="4" IsEditable="True" Style="{DynamicResource MaterialDesignComboBox}" Margin="5"
+                      Name="CboKeyword" TextBoxBase.TextChanged="CboKeyword_TextChanged">
             </ComboBox>
             <TextBlock Grid.Row="5" Text="新名称内容" Style="{DynamicResource MaterialDesignBody1TextBlock}"
-                       Margin="5"/>
+                       Margin="5" Name="TxtCurrentOutputFileNamePrefix" FontWeight="Bold"/>
             <Button Content="复制并重命名" Grid.Row="6" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
-                    Margin="5"/>
-            <Button Content="上传到FTP服务器" Grid.Row="7" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
-                    Margin="5"/>
+                    Margin="5" Name="BtnCopyAndReName" Click="BtnCopyAndReName_Click"/>
+            <CheckBox Grid.Row="7" Content="上传模式 勾选覆盖模式，不勾选跳过模式" Style="{DynamicResource MaterialDesignCheckBox}"
+                      Margin="5"/>
+            <Button Content="上传到FTP服务器" Grid.Row="8" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
+                    Margin="5" Name="BtnUpload" Click="BtnUpload_Click"/>
         </Grid>
     </Grid>
 </Window>
