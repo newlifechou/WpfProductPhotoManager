@@ -30,11 +30,17 @@ namespace WpfProductPhotoManager
 
             photoService = new PhotoService();
             ftpService = new FTPService();
+            pmsService = new PMSService();
             Initialize();
+
+
+            //加载已保存文件
+            LoadWorkList();
         }
 
         private PhotoService photoService;
         private FTPService ftpService;
+        private PMSService pmsService;
         private void Initialize()
         {
             BtnOutputPath.Content = photoService.OutputFolder;
@@ -44,7 +50,7 @@ namespace WpfProductPhotoManager
             productIds.Add($"{DateTime.Now.ToString("yyMMdd")}-A-2");
             productIds.Add($"{DateTime.Now.ToString("yyMMdd")}-A-3");
             productIds.Add($"{DateTime.Now.ToString("yyMMdd")}-A-4");
-
+            productIdsFilter = productIds;
             SetLstProducts();
 
             categories.Add("Test");
@@ -72,6 +78,10 @@ namespace WpfProductPhotoManager
 
         private void SetCurrentOutputFileNamePrefix()
         {
+            if (LstProductIds.SelectedItem == null || string.IsNullOrEmpty(LstProductIds.SelectedItem.ToString()))
+            {
+                return;
+            }
             photoService.SetOutputFilePrefix(LstProductIds.SelectedItem.ToString(), CboCategory.Text, CboKeyword.Text);
             TxtCurrentOutputFileNamePrefix.Text = photoService.OutputFilePrefix;
         }
@@ -79,7 +89,7 @@ namespace WpfProductPhotoManager
         private List<InputFile> inputFiles = new List<InputFile>();
 
         private List<string> productIds = new List<string>();
-
+        private List<string> productIdsFilter = new List<string>();
         private List<string> categories = new List<string>();
         private List<string> keywords = new List<string>();
 
@@ -112,18 +122,40 @@ namespace WpfProductPhotoManager
             var dialog = new ScanWindow();
             if (dialog.ShowDialog() == true)
             {
+                TxtIDFilter.Text = "";
                 productIds.Clear();
                 productIds.AddRange(dialog.ProductIDList);
-
+                productIdsFilter = productIds;
                 SetLstProducts();
             }
+        }
+        private void BtnImport_Click(object sender, RoutedEventArgs e)
+        {
+            TxtIDFilter.Text = "";
+            productIds.Clear();
+            productIds = pmsService.GetProductIds().OrderByDescending(i => i).ToList();
+            productIdsFilter = productIds;
+            SetLstProducts();
+        }
+
+        private void TxtIDFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(TxtIDFilter.Text))
+            {
+                productIdsFilter = productIds;
+            }
+            else
+            {
+                productIdsFilter = productIds.Where(i => i.Contains(TxtIDFilter.Text)).ToList();
+            }
+            SetLstProducts();
         }
 
         private void SetLstProducts()
         {
-            productIds=productIds.OrderByDescending(i=>i).ToList();
+            productIdsFilter = productIdsFilter.OrderByDescending(i => i).ToList();
             LstProductIds.ItemsSource = null;
-            LstProductIds.ItemsSource = productIds;
+            LstProductIds.ItemsSource = productIdsFilter;
             LstProductIds.SelectedIndex = 0;
         }
 
@@ -226,13 +258,13 @@ namespace WpfProductPhotoManager
         private void BtnLoadWorkList_Click(object sender, RoutedEventArgs e)
         {
             LoadWorkList();
-            SetDgInputs();
         }
 
         private void LoadWorkList()
         {
             string json = photoService.LoadWorkList();
             inputFiles = JsonConvert.DeserializeObject<List<InputFile>>(json);
+            SetDgInputs();
         }
 
         private void BtnClearList_Click(object sender, RoutedEventArgs e)
@@ -253,6 +285,7 @@ namespace WpfProductPhotoManager
                 MessageBox.Show(ex.Message);
             }
         }
+
 
     }
 }
