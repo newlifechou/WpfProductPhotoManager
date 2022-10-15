@@ -50,3 +50,5 @@ C:\Users\xszhou\Source\Repos\WpfProductPhotoManager\WpfProductPhotoManager\obj\D
 C:\Users\xszhou\Source\Repos\WpfProductPhotoManager\WpfProductPhotoManager\obj\Debug\WpfProductPhotoManager.pdb
 C:\Users\xszhou\Source\Repos\WpfProductPhotoManager\WpfProductPhotoManager\bin\Debug\Newtonsoft.Json.dll
 C:\Users\xszhou\Source\Repos\WpfProductPhotoManager\WpfProductPhotoManager\bin\Debug\Newtonsoft.Json.xml
+C:\Users\xszhou\Source\Repos\WpfProductPhotoManager\WpfProductPhotoManager\bin\Debug\FluentFTP.dll
+C:\Users\xszhou\Source\Repos\WpfProductPhotoManager\WpfProductPhotoManager\bin\Debug\FluentFTP.xml

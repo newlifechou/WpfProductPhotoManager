@@ -5,5 +5,17 @@
     <Setting Name="outputfolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="serverAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.50.160</Value>
+    </Setting>
+    <Setting Name="username" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pi</Value>
+    </Setting>
+    <Setting Name="password" Type="System.String" Scope="User">
+      <Value Profile="(Default)">newlifechou</Value>
+    </Setting>
+    <Setting Name="serverFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">photos</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

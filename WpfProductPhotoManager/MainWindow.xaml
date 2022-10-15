@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfProductPhotoManager"
         mc:Ignorable="d"
-        Title="产品照片管理器 v1.0" Height="600" Width="1000"
+        Title="产品照片管理器 v1.0 designed by xszhou" Height="600" Width="1000"
         WindowStartupLocation="CenterScreen">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -23,22 +23,25 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="请框选并拖动对应一组图片文件到下面方框" Style="{DynamicResource MaterialDesignCaptionTextBlock}"
+                <TextBlock Text="请框选并拖动对应一组照片到下面工作列表中" Style="{DynamicResource MaterialDesignCaptionTextBlock}"
                        Margin="5" Foreground="Green" VerticalAlignment="Center"/>
                 <StackPanel Orientation='Horizontal' HorizontalAlignment="Right" Grid.Column="1">
-                    <Button Content="清空工作列表" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
+                    <Button Content="清空" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
                             Name="BtnClearList" 
                             Click="BtnClearList_Click"/>
-                    <Button Content="保存工作列表" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
-                            Name="BtnSaveWorkList"
-                            Click="BtnSaveWorkList_Click"/>
-                    <Button Content="加载工作列表" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
+                    <Button Content="重置" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
+                            Name="BtnResetList" 
+                            Click="BtnResetList_Click"/>
+                    <Button Content="加载" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
                             Name="BtnLoadWorkList"
                             Click="BtnLoadWorkList_Click"/>
+                    <Button Content="保存" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
+                            Name="BtnSaveWorkList"
+                            Click="BtnSaveWorkList_Click"/>
                 </StackPanel>
             </Grid>
             <DataGrid Style="{DynamicResource MaterialDesignDataGrid}" AllowDrop="True" Drop="DataGrid_Drop"
-                    Grid.Row="1" Name="DgInputs" IsReadOnly="True" AutoGenerateColumns="False">
+                    Grid.Row="1" Name="DgInputs" IsReadOnly="True" AutoGenerateColumns="False" BorderThickness="1" Margin="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="原始文件名称" Binding="{Binding DisplayFileName}" Width="150"/>
                     <DataGridTextColumn Header="创建时间" Binding="{Binding CreatedTime,StringFormat={}{0:yyMMdd HH:mm:ss}}"/>
@@ -61,6 +64,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="auto"/>
@@ -73,23 +77,23 @@
                     Margin="5" Name="BtnScan" Click="BtnScan_Click"/>
             <Button Content="导入PMS最近30天的ID" Grid.Row="1" Style="{DynamicResource MaterialDesignOutlinedLightButton}" 
                     Margin="5" Name="BtnImport"/>
-            <Border Margin="5" BorderBrush="Gray" BorderThickness="1" Grid.Row="2">
-                <ListBox Style="{StaticResource MaterialDesignListBox}" Name="LstProductIds" SelectionChanged="LstProductIds_SelectionChanged">
-                </ListBox>
-            </Border>
-            <ComboBox Grid.Row="3" IsEditable="True" Style="{DynamicResource MaterialDesignComboBox}" Margin="5"
-                      Name="CboCategory" TextBoxBase.TextChanged="CboCategory_TextChanged">
-            </ComboBox>
+            <TextBlock Grid.Row="2" Style="{StaticResource MaterialDesignCaptionTextBlock}" Text="依次设置下面的ID,类别和关键词"
+                       TextWrapping="WrapWithOverflow" Margin="5"/>
+            <ListBox Grid.Row="3" Style="{StaticResource MaterialDesignListBox}" Name="LstProductIds" SelectionChanged="LstProductIds_SelectionChanged"
+                     BorderThickness="1" BorderBrush="Gray" Margin="5"/>
             <ComboBox Grid.Row="4" IsEditable="True" Style="{DynamicResource MaterialDesignComboBox}" Margin="5"
-                      Name="CboKeyword" TextBoxBase.TextChanged="CboKeyword_TextChanged">
+                      Name="CboCategory" TextBoxBase.TextChanged="CboCategory_TextChanged" ToolTip="分类词">
             </ComboBox>
-            <TextBlock Grid.Row="5" Text="新名称内容" Style="{DynamicResource MaterialDesignBody1TextBlock}"
-                       Margin="5" Name="TxtCurrentOutputFileNamePrefix" FontWeight="Bold"/>
-            <Button Content="复制并重命名" Grid.Row="6" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
+            <ComboBox Grid.Row="5" IsEditable="True" Style="{DynamicResource MaterialDesignComboBox}" Margin="5"
+                      Name="CboKeyword" TextBoxBase.TextChanged="CboKeyword_TextChanged" ToolTip="关键词">
+            </ComboBox>
+            <TextBlock Grid.Row="6" Text="新名称内容" Style="{DynamicResource MaterialDesignBody1TextBlock}"
+                       Margin="5" Name="TxtCurrentOutputFileNamePrefix" FontWeight="Bold" ToolTip="当前名称前缀"/>
+            <Button Content="复制并重命名" Grid.Row="7" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
                     Margin="5" Name="BtnCopyAndReName" Click="BtnCopyAndReName_Click"/>
-            <CheckBox Grid.Row="7" Content="上传模式 勾选覆盖模式，不勾选跳过模式" Style="{DynamicResource MaterialDesignCheckBox}"
-                      Margin="5"/>
-            <Button Content="上传到FTP服务器" Grid.Row="8" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
+            <CheckBox Grid.Row="8" Content="上传模式" Style="{DynamicResource MaterialDesignCheckBox}"
+                      Margin="5" Name="ChkUploadMode" ToolTip="勾选为覆盖模式，不勾选为跳过模式"/>
+            <Button Content="上传到FTP服务器" Grid.Row="9" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
                     Margin="5" Name="BtnUpload" Click="BtnUpload_Click"/>
         </Grid>
     </Grid>

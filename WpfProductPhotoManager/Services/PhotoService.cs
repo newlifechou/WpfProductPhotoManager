@@ -56,6 +56,11 @@ namespace WpfProductPhotoManager.Services
             }
         }
 
+        public bool CheckState(List<InputFile> files)
+        {
+            return files.Count(i => i.IsCopied) > 0;
+        }
+
         public void CopyPhoto(List<InputFile> files)
         {
             if (!Directory.Exists(outputFolder))
@@ -69,17 +74,22 @@ namespace WpfProductPhotoManager.Services
 
                 do
                 {
-                    string filename= $"{outputFilePrefix}_{count}.jpg";
-                    outputFileName = Path.Combine(outputFolder,filename);
+                    string filename = $"{outputFilePrefix}_{count}.jpg";
+                    outputFileName = Path.Combine(outputFolder, filename);
                     count++;
                 } while (File.Exists(outputFileName));
 
                 item.IsCopied = true;
                 item.NewFileName = outputFileName;
-                item.NewDisplayFileName=Path.GetFileName(outputFileName);
+                item.NewDisplayFileName = Path.GetFileName(outputFileName);
                 File.Copy(item.OrignalFileName, outputFileName, true);
                 item.CopyError = "成功";
+
+                item.IsUploaded = false;
+                item.UploadError = "";
             }
+
+            
         }
 
         public string[] GetRelatedPhotos(string productid)
