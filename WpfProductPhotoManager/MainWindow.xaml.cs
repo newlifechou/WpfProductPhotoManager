@@ -35,7 +35,7 @@ namespace WpfProductPhotoManager
 
 
             //加载已保存文件
-            LoadWorkList();
+            //LoadWorkList();
         }
 
         private PhotoService photoService;
@@ -111,6 +111,11 @@ namespace WpfProductPhotoManager
 
         private void SetDgInputs()
         {
+            if (inputFiles == null)
+            {
+                inputFiles = new List<InputFile>();
+                return;
+            }
 
             inputFiles = inputFiles.OrderBy(i => i.DisplayFileName).ToList();
             DgInputs.ItemsSource = null;
