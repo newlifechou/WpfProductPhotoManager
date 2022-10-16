@@ -32,7 +32,7 @@ namespace WpfProductPhotoManager.Services
             outputFolder = Properties.Settings.Default.outputfolder;
             if (string.IsNullOrEmpty(outputFolder))
             {
-                outputFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                OutputFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             }
             workListFileName = Path.Combine(Environment.CurrentDirectory, "worklist.json");
         }
