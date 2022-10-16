@@ -112,7 +112,12 @@ namespace WpfProductPhotoManager
 
             inputFiles.Clear();
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            foreach (var file in files)
+            var filterFiles = files.Where(i =>
+            {
+                string lowcaseFileName = i.ToLower();
+                return lowcaseFileName.EndsWith(".jpg") || lowcaseFileName.EndsWith(".jpeg");
+            });
+            foreach (var file in filterFiles)
             {
                 InputFile inputFile = new InputFile();
                 inputFile.OrignalFileName = file;
@@ -348,7 +353,7 @@ namespace WpfProductPhotoManager
                     return;
                 }
                 var dialog = new PhotoList();
-                dialog.SetPhotoList(productid,fileNames);
+                dialog.SetPhotoList(productid, fileNames);
                 dialog.DownloadAllFiles += Dialog_DownloadAllFiles;
                 dialog.ShowDialog();
             }

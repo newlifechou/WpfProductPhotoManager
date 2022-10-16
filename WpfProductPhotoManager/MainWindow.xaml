@@ -25,7 +25,7 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="请框选并拖动对应一组照片到下面工作列表中" Style="{DynamicResource MaterialDesignCaptionTextBlock}"
+                <TextBlock Text="请框选并拖动对应一组照片到下面工作列表中(.jpg或者.jpeg)" Style="{DynamicResource MaterialDesignCaptionTextBlock}"
                        Margin="5" Foreground="Green" VerticalAlignment="Center"/>
                 <StackPanel Orientation='Horizontal' HorizontalAlignment="Right" Grid.Column="1">
                     <Button Content="清空" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
