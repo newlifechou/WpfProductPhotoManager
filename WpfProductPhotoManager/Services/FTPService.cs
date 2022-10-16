@@ -23,21 +23,28 @@ namespace WpfProductPhotoManager.Services
         public FTPService()
         {
             OverrideMode = false;
-            LoadFTPSettings();
-        }
-
-        private void LoadFTPSettings()
-        {
             serverAddress = Properties.Settings.Default.serverAddress;
             username = Properties.Settings.Default.username;
             password = Properties.Settings.Default.password;
             serverFolder = Properties.Settings.Default.serverFolder;
+            outputFolder = Properties.Settings.Default.outputfolder;
+        }
+
+        public FTPService(string serverAddress, string username, string password, string serverFolder, string outputFolder, bool overrideMode)
+        {
+            OverrideMode = overrideMode;
+            this.serverAddress = serverAddress;
+            this.username = username;
+            this.password = password;
+            this.serverFolder = serverFolder;
+            this.outputFolder = outputFolder;
         }
 
         private string serverAddress;
         private string username;
         private string password;
         private string serverFolder;
+        private string outputFolder;
 
         public bool OverrideMode { get; set; }
 
@@ -110,9 +117,37 @@ namespace WpfProductPhotoManager.Services
             string remoteFilePath = $"{serverFolder}";
             var queryResult = client.GetNameListing(remoteFilePath);
             string searchString = remoteFilePath + "/" + search_prefix;
-            var result = queryResult.Where(i => i.StartsWith(searchString)).ToList();
+            var result = queryResult.Where(i => i.StartsWith(searchString))
+                .Select(i => System.IO.Path.GetFileName(i))
+                .OrderBy(i => i)
+                .ToList();
             client.Disconnect();
             return result;
+        }
+
+        public void DownloadAllFiles(List<string> filenames)
+        {
+            var client = new FtpClient(serverAddress, username, password);
+            client.Encoding = Encoding.Default;
+            client.AutoConnect();
+            if (!client.DirectoryExists(serverFolder))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(outputFolder))
+            {
+                Directory.CreateDirectory(outputFolder);
+            }
+
+            foreach (var item in filenames)
+            {
+                string remoteFilePath = $"{serverFolder}/{item}";
+                string localFilePath = $"{outputFolder}\\{item}";
+                client.DownloadFile(localFilePath, remoteFilePath, FtpLocalExists.Overwrite);
+            }
+
+            client.Disconnect();
         }
 
     }

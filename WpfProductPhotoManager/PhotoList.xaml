@@ -5,11 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfProductPhotoManager"
         mc:Ignorable="d"
-        Title="查询列表" Height="450" Width="300" WindowStartupLocation="CenterScreen"
+        Title="查询列表" Height="450" Width="400" WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow">
     <Grid>
-        <ListBox Style="{StaticResource MaterialDesignListBox}" Margin="2" Name="LstPhotoList">
-            
-        </ListBox>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ListBox Style="{StaticResource MaterialDesignListBox}" Margin="2" Name="LstPhotoList"/>
+        <Button Content="下载该列表所有文件" Name="BtnDownloadAllFiles" Style="{StaticResource MaterialDesignOutlinedDarkButton}"
+                Grid.Row="1" Margin="2" Click="BtnDownloadAllFiles_Click"/>
     </Grid>
 </Window>

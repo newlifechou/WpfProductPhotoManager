@@ -25,18 +25,6 @@ namespace WpfProductPhotoManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string outputfolder {
-            get {
-                return ((string)(this["outputfolder"]));
-            }
-            set {
-                this["outputfolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("192.168.50.160")]
         public string serverAddress {
             get {
@@ -80,6 +68,30 @@ namespace WpfProductPhotoManager.Properties {
             }
             set {
                 this["serverFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("productphotos")]
+        public string localFolder {
+            get {
+                return ((string)(this["localFolder"]));
+            }
+            set {
+                this["localFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("output")]
+        public string outputfolder {
+            get {
+                return ((string)(this["outputfolder"]));
+            }
+            set {
+                this["outputfolder"] = value;
             }
         }
     }

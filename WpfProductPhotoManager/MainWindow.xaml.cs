@@ -329,6 +329,7 @@ namespace WpfProductPhotoManager
             }
         }
 
+        private List<string> fileNames;
         private void BtnViewFTPFiles_Click(object sender, RoutedEventArgs e)
         {
             if (LstProductIds.SelectedItem == null || string.IsNullOrEmpty(LstProductIds.SelectedItem.ToString()))
@@ -338,21 +339,29 @@ namespace WpfProductPhotoManager
 
             try
             {
-                var fileNameList = ftpService.ListFiles(LstProductIds.SelectedItem.ToString());
-                if (fileNameList == null || fileNameList.Count == 0)
+                fileNames = ftpService.ListFiles(LstProductIds.SelectedItem.ToString());
+                if (fileNames == null || fileNames.Count == 0)
                 {
                     MessageBox.Show("FTP服务器上没有找到该ID的任何照片");
                     return;
                 }
                 var dialog = new PhotoList();
-                var filterResult = fileNameList.Select(x => System.IO.Path.GetFileName(x)).ToList();
-                dialog.SetPhotoList(filterResult);
+                dialog.SetPhotoList(fileNames);
+                dialog.DownloadAllFiles += Dialog_DownloadAllFiles;
                 dialog.ShowDialog();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void Dialog_DownloadAllFiles(object sender, EventArgs e)
+        {
+            if (fileNames == null || fileNames.Count == 0)
+                return;
+            ftpService.DownloadAllFiles(fileNames);
+            MessageBox.Show("下载成功");
         }
     }
 }

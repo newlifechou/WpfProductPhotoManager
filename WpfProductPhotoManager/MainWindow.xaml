@@ -100,7 +100,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="1"/>
             </Grid.RowDefinitions>
             <Button Content="产品ID扫描输入" Grid.Row="0" Style="{DynamicResource MaterialDesignOutlinedLightButton}" 
                     Margin="5" Name="BtnScan" Click="BtnScan_Click"/>

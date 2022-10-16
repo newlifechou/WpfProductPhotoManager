@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WpfProductPhotoManager.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="outputfolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="serverAddress" Type="System.String" Scope="User">
       <Value Profile="(Default)">192.168.50.160</Value>
     </Setting>
@@ -16,6 +13,12 @@
     </Setting>
     <Setting Name="serverFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">/home/pi/photos</Value>
+    </Setting>
+    <Setting Name="localFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">productphotos</Value>
+    </Setting>
+    <Setting Name="outputfolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">output</Value>
     </Setting>
   </Settings>
 </SettingsFile>

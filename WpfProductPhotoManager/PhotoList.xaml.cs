@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentFTP;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,15 @@ namespace WpfProductPhotoManager
         {
             LstPhotoList.ItemsSource = null;
             LstPhotoList.ItemsSource = list;
+        }
+
+        public event EventHandler DownloadAllFiles;
+        private void BtnDownloadAllFiles_Click(object sender, RoutedEventArgs e)
+        {
+            if (DownloadAllFiles != null)
+            {
+                DownloadAllFiles.Invoke(this, null);
+            }
         }
     }
 }
