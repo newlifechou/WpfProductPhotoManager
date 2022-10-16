@@ -100,12 +100,12 @@ namespace WpfProductPhotoManager
             {
                 if (!photoService.CheckState(inputFiles))
                 {
-                    MessageBox.Show("当前工作表还未处理");
+                    MessageBox.Show("当前工作表还未处理(可手动清空)");
                     return;
                 }
                 if (!ftpService.CheckState(inputFiles))
                 {
-                    MessageBox.Show("当前工作表还未上传");
+                    MessageBox.Show("当前工作表还未上传(可手动清空)");
                     return;
                 }
             }
