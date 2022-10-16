@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WpfProductPhotoManager.Properties {
+namespace WpfProductPhotoManagerTests.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,6 +20,18 @@ namespace WpfProductPhotoManager.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("123")]
+        public string test {
+            get {
+                return ((string)(this["test"]));
+            }
+            set {
+                this["test"] = value;
             }
         }
         

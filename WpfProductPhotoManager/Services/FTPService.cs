@@ -68,7 +68,7 @@ namespace WpfProductPhotoManager.Services
                     continue;
                 }
 
-                string remoteFilePath = $"/home/pi/{serverFolder}/{item.NewDisplayFileName}";
+                string remoteFilePath = $"{serverFolder}/{item.NewDisplayFileName}";
 
                 FtpRemoteExists remoteMode = OverrideMode ? FtpRemoteExists.Overwrite : FtpRemoteExists.Skip;
 
@@ -87,10 +87,31 @@ namespace WpfProductPhotoManager.Services
                 client.UploadFile(item.NewFileName, remoteFilePath, remoteMode);
                 item.IsUploaded = true;
                 item.UploadError = msg;
-                
+
 
             }
             client.Disconnect();
+        }
+
+
+        public List<string> ListFiles(string search_id)
+        {
+            if (string.IsNullOrEmpty(search_id))
+                return null;
+
+            var client = new FtpClient(serverAddress, username, password);
+            client.Encoding = Encoding.Default;
+            client.AutoConnect();
+            if (!client.DirectoryExists(serverFolder))
+            {
+                return null;
+            }
+
+            string remoteFilePath = $"{serverFolder}";
+            var queryResult = client.GetNameListing(remoteFilePath);
+
+            string searchString = remoteFilePath + "/" + search_id;
+            return queryResult.Where(i => i.StartsWith(searchString)).ToList();
         }
 
     }
