@@ -99,6 +99,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Button Content="产品ID扫描输入" Grid.Row="0" Style="{DynamicResource MaterialDesignOutlinedLightButton}" 
@@ -125,6 +126,8 @@
                       Margin="5" Name="ChkUploadMode" ToolTip="勾选为覆盖模式，不勾选为跳过模式"/>
             <Button Content="上传到FTP服务器" Grid.Row="10" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
                     Margin="5" Name="BtnUpload" Click="BtnUpload_Click"/>
+            <Button Content="查询服务器该ID已有图片" Grid.Row="11" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
+                    Margin="5" Name="BtnViewFTPFiles" Click="BtnViewFTPFiles_Click"/>
         </Grid>
     </Grid>
 </Window>

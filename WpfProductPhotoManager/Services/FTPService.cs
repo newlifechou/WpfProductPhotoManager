@@ -94,9 +94,9 @@ namespace WpfProductPhotoManager.Services
         }
 
 
-        public List<string> ListFiles(string search_id)
+        public List<string> ListFiles(string search_prefix)
         {
-            if (string.IsNullOrEmpty(search_id))
+            if (string.IsNullOrEmpty(search_prefix))
                 return null;
 
             var client = new FtpClient(serverAddress, username, password);
@@ -109,9 +109,10 @@ namespace WpfProductPhotoManager.Services
 
             string remoteFilePath = $"{serverFolder}";
             var queryResult = client.GetNameListing(remoteFilePath);
-
-            string searchString = remoteFilePath + "/" + search_id;
-            return queryResult.Where(i => i.StartsWith(searchString)).ToList();
+            string searchString = remoteFilePath + "/" + search_prefix;
+            var result = queryResult.Where(i => i.StartsWith(searchString)).ToList();
+            client.Disconnect();
+            return result;
         }
 
     }

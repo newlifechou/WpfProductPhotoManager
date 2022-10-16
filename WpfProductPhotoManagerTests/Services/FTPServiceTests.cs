@@ -15,7 +15,7 @@ namespace WpfProductPhotoManager.Services.Tests
         public void ListFilesTest()
         {
             var ftp = new FTPService();
-            var fileList = ftp.ListFiles("221012-D-2");
+            var fileList = ftp.ListFiles("221015-D-1_Test");
             Assert.IsNotNull(fileList);
         }
     }
