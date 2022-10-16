@@ -27,17 +27,7 @@ namespace WpfProductPhotoManager.Services
             username = Properties.Settings.Default.username;
             password = Properties.Settings.Default.password;
             serverFolder = Properties.Settings.Default.serverFolder;
-            outputFolder = Properties.Settings.Default.outputfolder;
-        }
-
-        public FTPService(string serverAddress, string username, string password, string serverFolder, string outputFolder, bool overrideMode)
-        {
-            OverrideMode = overrideMode;
-            this.serverAddress = serverAddress;
-            this.username = username;
-            this.password = password;
-            this.serverFolder = serverFolder;
-            this.outputFolder = outputFolder;
+            outputFolder = System.IO.Path.Combine(Properties.Settings.Default.outputfolder,"download");
         }
 
         private string serverAddress;

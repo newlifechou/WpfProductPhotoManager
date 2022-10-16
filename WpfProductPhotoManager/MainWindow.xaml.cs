@@ -360,8 +360,15 @@ namespace WpfProductPhotoManager
         {
             if (fileNames == null || fileNames.Count == 0)
                 return;
-            ftpService.DownloadAllFiles(fileNames);
-            MessageBox.Show("下载成功");
+            try
+            {
+                ftpService.DownloadAllFiles(fileNames);
+                MessageBox.Show("下载成功");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

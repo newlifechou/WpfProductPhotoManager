@@ -37,6 +37,7 @@ namespace WpfProductPhotoManager
             if (DownloadAllFiles != null)
             {
                 DownloadAllFiles.Invoke(this, null);
+                this.Close();
             }
         }
     }
