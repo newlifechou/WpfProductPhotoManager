@@ -25,8 +25,9 @@ namespace WpfProductPhotoManager
             InitializeComponent();
         }
 
-        public void SetPhotoList(List<string> list)
+        public void SetPhotoList(string productid,List<string> list)
         {
+            TxtProductID.Text = productid;
             LstPhotoList.ItemsSource = null;
             LstPhotoList.ItemsSource = list;
         }

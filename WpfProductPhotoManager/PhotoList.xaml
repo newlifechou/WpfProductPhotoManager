@@ -9,12 +9,14 @@
         WindowStyle="ToolWindow">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Name="TxtProductID" Margin="2"/>
         <ListBox Style="{StaticResource MaterialDesignListBox}" Margin="2" Name="LstPhotoList" BorderThickness="1"
-                 BorderBrush="Gray"/>
+                 BorderBrush="Gray" Grid.Row="1"/>
         <Button Content="下载该列表所有文件" Name="BtnDownloadAllFiles" Style="{StaticResource MaterialDesignOutlinedDarkButton}"
-                Grid.Row="1" Margin="2" Click="BtnDownloadAllFiles_Click"/>
+                Grid.Row="2" Margin="2" Click="BtnDownloadAllFiles_Click"/>
     </Grid>
 </Window>

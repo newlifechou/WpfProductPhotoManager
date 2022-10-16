@@ -57,6 +57,7 @@ namespace WpfProductPhotoManager
             categories.Add("Bonding");
             categories.Add("SecondMachine");
             categories.Add("BeforeDelivery");
+            categories.Add("Return");
 
             CboCategory.ItemsSource = null;
             CboCategory.ItemsSource = categories;
@@ -339,14 +340,15 @@ namespace WpfProductPhotoManager
 
             try
             {
-                fileNames = ftpService.ListFiles(LstProductIds.SelectedItem.ToString());
+                string productid = LstProductIds.SelectedItem.ToString();
+                fileNames = ftpService.ListFiles(productid);
                 if (fileNames == null || fileNames.Count == 0)
                 {
-                    MessageBox.Show("FTP服务器上没有找到该ID的任何照片");
+                    MessageBox.Show($"FTP服务器上没有找到ID为[{productid}]的任何照片");
                     return;
                 }
                 var dialog = new PhotoList();
-                dialog.SetPhotoList(fileNames);
+                dialog.SetPhotoList(productid,fileNames);
                 dialog.DownloadAllFiles += Dialog_DownloadAllFiles;
                 dialog.ShowDialog();
             }
