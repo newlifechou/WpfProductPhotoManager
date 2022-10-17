@@ -42,6 +42,9 @@
                     <Button Content="保存" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
                             Name="BtnSaveWorkList"
                             Click="BtnSaveWorkList_Click"/>
+                    <Button Content="日志" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
+                            Name="BtnLog"
+                            Click="BtnLog_Click"/>
                 </StackPanel>
             </Grid>
             <DataGrid Style="{DynamicResource MaterialDesignDataGrid}" AllowDrop="True" Drop="DataGrid_Drop"

@@ -1,4 +1,5 @@
 ﻿using FluentFTP;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,7 +29,10 @@ namespace WpfProductPhotoManager.Services
             password = Properties.Settings.Default.password;
             serverFolder = Properties.Settings.Default.serverFolder;
             outputFolder = System.IO.Path.Combine(Properties.Settings.Default.outputfolder, "download");
+            logger = LogManager.GetCurrentClassLogger();
         }
+
+        private ILogger logger;
 
         private string serverAddress;
         private string username;
@@ -86,6 +90,8 @@ namespace WpfProductPhotoManager.Services
                 item.IsUploaded = true;
                 item.UploadError = msg;
 
+                logger.Info($"上传了 {item.NewDisplayFileName}");
+
                 current++;
                 progress.Report(current * 100 / total);
             }
@@ -141,6 +147,8 @@ namespace WpfProductPhotoManager.Services
                 string remoteFilePath = $"{serverFolder}/{item}";
                 string localFilePath = $"{outputFolder}\\{item}";
                 client.DownloadFile(localFilePath, remoteFilePath, FtpLocalExists.Overwrite);
+
+                logger.Info($"下载了 {item}");
 
                 current++;
                 progress.Report(current * 100 / total);

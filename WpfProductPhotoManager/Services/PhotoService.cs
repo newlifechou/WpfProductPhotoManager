@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace WpfProductPhotoManager.Services
 
         private string workListFileName;
 
+        private ILogger logger;
         public PhotoService()
         {
             outputFolder = Properties.Settings.Default.outputfolder;
@@ -35,6 +37,8 @@ namespace WpfProductPhotoManager.Services
                 OutputFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             }
             workListFileName = Path.Combine(Environment.CurrentDirectory, "worklist.json");
+
+            logger = LogManager.GetCurrentClassLogger();
         }
 
 
@@ -107,6 +111,8 @@ namespace WpfProductPhotoManager.Services
 
                 item.IsUploaded = false;
                 item.UploadError = "";
+
+                logger.Info($"{item.DisplayFileName} 复制处理为 {item.NewDisplayFileName}");
 
                 current++;
                 progress.Report(current * 100 / total);

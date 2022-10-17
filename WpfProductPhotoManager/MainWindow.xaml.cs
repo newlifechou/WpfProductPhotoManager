@@ -438,6 +438,17 @@ namespace WpfProductPhotoManager
             }
         }
 
-
+        private void BtnLog_Click(object sender, RoutedEventArgs e)
+        {
+            string logfile = "xslog.txt";
+            if (File.Exists(logfile))
+            {
+                System.Diagnostics.Process.Start(logfile);
+            }
+            else
+            {
+                MessageBox.Show("没有找到日志文件");
+            }
+        }
     }
 }
