@@ -97,13 +97,37 @@ namespace WpfProductPhotoManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool loadpmsids {
             get {
                 return ((bool)(this["loadpmsids"]));
             }
             set {
                 this["loadpmsids"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/Z_Test")]
+        public string serverFolderTest {
+            get {
+                return ((string)(this["serverFolderTest"]));
+            }
+            set {
+                this["serverFolderTest"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsExperienmentMode {
+            get {
+                return ((bool)(this["IsExperienmentMode"]));
+            }
+            set {
+                this["IsExperienmentMode"] = value;
             }
         }
     }

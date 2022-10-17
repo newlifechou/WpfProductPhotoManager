@@ -21,6 +21,12 @@
       <Value Profile="(Default)">output</Value>
     </Setting>
     <Setting Name="loadpmsids" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="serverFolderTest" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/Z_Test</Value>
+    </Setting>
+    <Setting Name="IsExperienmentMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

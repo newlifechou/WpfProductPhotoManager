@@ -85,6 +85,7 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition />
                     <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <Button Style="{DynamicResource MaterialDesignOutlinedButton}" Content="工作目录" Name="BtnOutputFolderSet" Grid.Column="0"
                             Click="BtnOutputFolderSet_Click"/>
@@ -92,7 +93,12 @@
                         Margin="5 0 0 0" Name="BtnOutputPath" VerticalAlignment="Center" HorizontalAlignment="Left"
                         Grid.Column="1"
                         Click="BtnOutputPath_Click"/>
-                <materialDesign:Chip Content="共0项" Style="{StaticResource MaterialDesignOutlineChip}" Grid.Column="2"
+                <StackPanel Orientation="Horizontal" Grid.Column="2">
+                    <ToggleButton Name="CbIsExperiementMode" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="使用FTP试验文件夹Z_Test"
+                                  Checked="CbIsExperiementMode_Checked" IsChecked="False"/>
+                    <TextBlock Text="使用试验文件夹" Style="{x:Null}" VerticalAlignment="Center"/>
+                </StackPanel>
+                <materialDesign:Chip Content="共0项" Style="{StaticResource MaterialDesignOutlineChip}" Grid.Column="3"
                                      Name="ChipTotalItems"/>
             </Grid>
         </Grid>

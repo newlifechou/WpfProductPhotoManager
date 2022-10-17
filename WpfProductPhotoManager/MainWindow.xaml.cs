@@ -42,6 +42,8 @@ namespace WpfProductPhotoManager
             {
                 BtnImport_Click(this, null);
             }
+
+            CbIsExperiementMode.IsChecked = Properties.Settings.Default.IsExperienmentMode;
         }
 
         private PhotoService photoService;
@@ -75,6 +77,8 @@ namespace WpfProductPhotoManager
             keywords.Add("BRC");
             keywords.Add("SZJMK");
             keywords.Add("DJY");
+            keywords.Add("YMTC");
+            keywords.Add("HW");
 
             CboKeyword.ItemsSource = null;
             CboKeyword.ItemsSource = keywords;
@@ -449,6 +453,25 @@ namespace WpfProductPhotoManager
             {
                 MessageBox.Show("没有找到日志文件");
             }
+        }
+
+        private void CbIsExperiementMode_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
+        private void CbIsExperiementMode_Checked(object sender, RoutedEventArgs e)
+        {
+            if (CbIsExperiementMode.IsChecked == true)
+            {
+                ftpService.SeverFolder = Properties.Settings.Default.serverFolderTest;
+            }
+            else
+            {
+                ftpService.SeverFolder = Properties.Settings.Default.serverFolder;
+            }
+            Properties.Settings.Default.IsExperienmentMode = (bool)CbIsExperiementMode.IsChecked;
+            Properties.Settings.Default.Save();
         }
     }
 }

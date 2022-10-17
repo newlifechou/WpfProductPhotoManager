@@ -40,6 +40,13 @@ namespace WpfProductPhotoManager.Services
         private string serverFolder;
         private string outputFolder;
 
+        public string SeverFolder
+        {
+            get { return serverFolder; }
+            set { serverFolder = value; }
+        }
+
+
         public bool OverrideMode { get; set; }
 
         public bool CheckState(List<InputFile> inputFiles)
