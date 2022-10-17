@@ -302,7 +302,6 @@ namespace WpfProductPhotoManager
 
             try
             {
-                BtnViewFTPFiles.IsEnabled = false;
                 string productid = LstProductIds.SelectedItem.ToString();
                 viewFileNames = ftpService.ListFiles(productid);
                 if (viewFileNames == null || viewFileNames.Count == 0)
@@ -317,7 +316,6 @@ namespace WpfProductPhotoManager
             }
             catch (Exception ex)
             {
-                BtnViewFTPFiles.IsEnabled = true;
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -334,7 +332,6 @@ namespace WpfProductPhotoManager
                     if (PbProcess.Value == 100)
                     {
                         MessageBox.Show("下载结束");
-                        BtnViewFTPFiles.IsEnabled = true;
                     }
                 });
                 //ftpService.DownloadAllFiles(fileNames, progress);
@@ -378,6 +375,10 @@ namespace WpfProductPhotoManager
             }
             SetDgInputs();
             SaveWorkList();
+
+            BtnCopyAndReName.IsEnabled = true;
+            BtnUpload.IsEnabled = true;
+            BtnViewFTPFiles.IsEnabled = true;
         }
         private void SaveWorkList()
         {
@@ -388,6 +389,9 @@ namespace WpfProductPhotoManager
         private void BtnLoadWorkList_Click(object sender, RoutedEventArgs e)
         {
             LoadWorkList();
+            BtnCopyAndReName.IsEnabled = true;
+            BtnUpload.IsEnabled = true;
+            BtnViewFTPFiles.IsEnabled = true;
         }
 
         private void LoadWorkList()
