@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PMSWCFService.DataContracts.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PMSWCFService.DataContracts.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.16.254:8002/PMSService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/PMSWCFService.DataContracts" />
+  <xs:complexType name="ArrayOfPMSReadyOutMaterialModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PMSReadyOutMaterialModel" nillable="true" type="tns:PMSReadyOutMaterialModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPMSReadyOutMaterialModel" nillable="true" type="tns:ArrayOfPMSReadyOutMaterialModel" />
+  <xs:complexType name="PMSReadyOutMaterialModel">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PMSWCFService.DataContracts" minOccurs="0" name="MaterialInModel" nillable="true" type="q1:DcMaterialInventoryIn" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PMSWCFService.DataContracts" minOccurs="0" name="MaterialOutModel" nillable="true" type="q2:DcMaterialInventoryOut" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PMSWCFService.DataContracts" minOccurs="0" name="RecordMillingModel" nillable="true" type="q3:DcRecordMilling" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PMSReadyOutMaterialModel" nillable="true" type="tns:PMSReadyOutMaterialModel" />
+</xs:schema>

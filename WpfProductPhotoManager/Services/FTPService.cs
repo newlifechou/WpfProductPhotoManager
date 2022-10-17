@@ -27,7 +27,7 @@ namespace WpfProductPhotoManager.Services
             username = Properties.Settings.Default.username;
             password = Properties.Settings.Default.password;
             serverFolder = Properties.Settings.Default.serverFolder;
-            outputFolder = System.IO.Path.Combine(Properties.Settings.Default.outputfolder,"download");
+            outputFolder = System.IO.Path.Combine(Properties.Settings.Default.outputfolder, "download");
         }
 
         private string serverAddress;
@@ -41,6 +41,13 @@ namespace WpfProductPhotoManager.Services
         public bool CheckState(List<InputFile> inputFiles)
         {
             return inputFiles.Count(i => i.IsUploaded) > 0;
+        }
+
+
+        public event EventHandler<string> LogProcessInfo;
+        private void OnLogProcessInfo(string log)
+        {
+            LogProcessInfo?.Invoke(this, log);
         }
 
         public void UploadFiles(List<InputFile> inputFiles)
@@ -58,6 +65,7 @@ namespace WpfProductPhotoManager.Services
 
             foreach (var item in inputFiles)
             {
+
                 if (string.IsNullOrEmpty(item.NewFileName))
                 {
                     item.IsUploaded = false;
@@ -68,7 +76,6 @@ namespace WpfProductPhotoManager.Services
                 string remoteFilePath = $"{serverFolder}/{item.NewDisplayFileName}";
 
                 FtpRemoteExists remoteMode = OverrideMode ? FtpRemoteExists.Overwrite : FtpRemoteExists.Skip;
-
                 string msg = "上传成功";
                 if (client.FileExists(remoteFilePath))
                 {
@@ -84,8 +91,7 @@ namespace WpfProductPhotoManager.Services
                 client.UploadFile(item.NewFileName, remoteFilePath, remoteMode);
                 item.IsUploaded = true;
                 item.UploadError = msg;
-
-
+                OnLogProcessInfo(remoteFilePath);
             }
             client.Disconnect();
         }
@@ -106,7 +112,7 @@ namespace WpfProductPhotoManager.Services
 
             string remoteFilePath = $"{serverFolder}";
             var queryResult = client.GetNameListing(remoteFilePath);
-            string searchString = remoteFilePath + "/" + search_prefix;
+            string searchString = search_prefix;
             var result = queryResult.Where(i => i.StartsWith(searchString))
                 .Select(i => System.IO.Path.GetFileName(i))
                 .OrderBy(i => i)
@@ -135,6 +141,7 @@ namespace WpfProductPhotoManager.Services
                 string remoteFilePath = $"{serverFolder}/{item}";
                 string localFilePath = $"{outputFolder}\\{item}";
                 client.DownloadFile(localFilePath, remoteFilePath, FtpLocalExists.Overwrite);
+                OnLogProcessInfo(remoteFilePath);
             }
 
             client.Disconnect();

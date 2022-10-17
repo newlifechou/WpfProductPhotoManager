@@ -3,16 +3,16 @@
   <Profiles />
   <Settings>
     <Setting Name="serverAddress" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.50.160</Value>
+      <Value Profile="(Default)">192.168.16.254</Value>
     </Setting>
     <Setting Name="username" Type="System.String" Scope="User">
-      <Value Profile="(Default)">pi</Value>
+      <Value Profile="(Default)">photoadmin</Value>
     </Setting>
     <Setting Name="password" Type="System.String" Scope="User">
-      <Value Profile="(Default)">newlifechou</Value>
+      <Value Profile="(Default)">cdpmiadmin</Value>
     </Setting>
     <Setting Name="serverFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">/home/pi/photos</Value>
+      <Value Profile="(Default)">/Y_Products</Value>
     </Setting>
     <Setting Name="localFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">productphotos</Value>

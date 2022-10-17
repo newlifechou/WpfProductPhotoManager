@@ -31,8 +31,8 @@ namespace WpfProductPhotoManager
             photoService = new PhotoService();
             ftpService = new FTPService();
             pmsService = new PMSService();
-            Initialize();
 
+            Initialize();
 
             //加载已保存文件
             LoadWorkList();
@@ -100,12 +100,14 @@ namespace WpfProductPhotoManager
             {
                 if (!photoService.CheckState(inputFiles))
                 {
-                    MessageBox.Show("当前工作表还未处理(可手动清空)");
+                    TxtTips.Visibility = Visibility.Visible;
+                    TxtTips.Text = "当前工作表还未处理(可手动清空)";
                     return;
                 }
                 if (!ftpService.CheckState(inputFiles))
                 {
-                    MessageBox.Show("当前工作表还未上传(可手动清空)");
+                    TxtTips.Visibility = Visibility.Visible;
+                    TxtTips.Text = "当前工作表还未上传(可手动清空)";
                     return;
                 }
             }
@@ -141,6 +143,7 @@ namespace WpfProductPhotoManager
             DgInputs.ItemsSource = null;
             DgInputs.ItemsSource = inputFiles;
             ChipTotalItems.Content = $"共{inputFiles.Count}项";
+            TxtTips.Visibility = Visibility.Collapsed;
         }
 
         private void BtnScan_Click(object sender, RoutedEventArgs e)
@@ -161,7 +164,8 @@ namespace WpfProductPhotoManager
             productIds.Clear();
             try
             {
-                productIds = pmsService.GetProductIds().OrderByDescending(i => i).ToList();
+                //productIds = pmsService.GetProductIds().OrderByDescending(i => i).ToList();
+                productIds = pmsService.GetProductIdsFromPMS().OrderByDescending(i => i).ToList();
             }
             catch (Exception ex)
             {
@@ -225,6 +229,7 @@ namespace WpfProductPhotoManager
             }
             try
             {
+                BtnCopyAndReName.IsEnabled = false;
                 photoService.CopyPhoto(inputFiles);
 
             }
@@ -232,8 +237,12 @@ namespace WpfProductPhotoManager
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                BtnCopyAndReName.IsEnabled = true;
+            }
             SetDgInputs();
-            MessageBox.Show("复制和规范重命名成功");
+            MessageBox.Show("复制和规范重命名结束");
             SaveWorkList();
         }
 
@@ -247,6 +256,7 @@ namespace WpfProductPhotoManager
 
             try
             {
+                BtnUpload.IsEnabled = false;
                 if (ftpService.CheckState(inputFiles))
                 {
                     if (MessageBox.Show("工作列表中有文件已被上传,是否再次上传?", "请问", MessageBoxButton.YesNo) == MessageBoxResult.No)
@@ -257,14 +267,17 @@ namespace WpfProductPhotoManager
 
                 ftpService.OverrideMode = (bool)ChkUploadMode.IsChecked;
                 ftpService.UploadFiles(inputFiles);
+                MessageBox.Show("文件上传结束");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
+            finally
+            {
+                BtnUpload.IsEnabled = true;
+            }
             SetDgInputs();
-            MessageBox.Show("文件上传成功");
             SaveWorkList();
         }
 
@@ -283,7 +296,7 @@ namespace WpfProductPhotoManager
         private void BtnSaveWorkList_Click(object sender, RoutedEventArgs e)
         {
             SaveWorkList();
-            MessageBox.Show("保存成功");
+            MessageBox.Show("保存结束");
         }
 
         private void BtnResetList_Click(object sender, RoutedEventArgs e)
@@ -294,6 +307,8 @@ namespace WpfProductPhotoManager
                 item.CopyError = "";
                 item.IsUploaded = false;
                 item.UploadError = "";
+                item.NewDisplayFileName = "";
+                item.NewFileName = "";
             }
             SetDgInputs();
             SaveWorkList();
@@ -345,6 +360,7 @@ namespace WpfProductPhotoManager
 
             try
             {
+                BtnViewFTPFiles.IsEnabled = false;
                 string productid = LstProductIds.SelectedItem.ToString();
                 fileNames = ftpService.ListFiles(productid);
                 if (fileNames == null || fileNames.Count == 0)
@@ -361,6 +377,10 @@ namespace WpfProductPhotoManager
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                BtnViewFTPFiles.IsEnabled = true;
+            }
         }
 
         private void Dialog_DownloadAllFiles(object sender, EventArgs e)
@@ -370,12 +390,13 @@ namespace WpfProductPhotoManager
             try
             {
                 ftpService.DownloadAllFiles(fileNames);
-                MessageBox.Show("下载成功");
+                MessageBox.Show("下载结束");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
     }
 }

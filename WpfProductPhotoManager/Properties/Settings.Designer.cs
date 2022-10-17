@@ -25,7 +25,7 @@ namespace WpfProductPhotoManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.50.160")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.16.254")]
         public string serverAddress {
             get {
                 return ((string)(this["serverAddress"]));
@@ -37,7 +37,7 @@ namespace WpfProductPhotoManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("pi")]
+        [global::System.Configuration.DefaultSettingValueAttribute("photoadmin")]
         public string username {
             get {
                 return ((string)(this["username"]));
@@ -49,7 +49,7 @@ namespace WpfProductPhotoManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("newlifechou")]
+        [global::System.Configuration.DefaultSettingValueAttribute("cdpmiadmin")]
         public string password {
             get {
                 return ((string)(this["password"]));
@@ -61,7 +61,7 @@ namespace WpfProductPhotoManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/home/pi/photos")]
+        [global::System.Configuration.DefaultSettingValueAttribute("/Y_Products")]
         public string serverFolder {
             get {
                 return ((string)(this["serverFolder"]));
