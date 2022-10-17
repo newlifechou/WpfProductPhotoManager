@@ -128,8 +128,8 @@
                        Margin="5" Name="TxtCurrentOutputFileNamePrefix" FontWeight="Bold" ToolTip="当前名称前缀,格式为ID_类别_关键词[可选]"/>
             <Button Content="规范化命名处理" Grid.Row="8" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
                     Margin="5" Name="BtnCopyAndReName" Click="BtnCopyAndReName_Click"/>
-            <CheckBox Grid.Row="9" Content="已有文件上传策略 覆盖 or 跳过" Style="{DynamicResource MaterialDesignCheckBox}"
-                      Margin="5" Name="ChkUploadMode" ToolTip="勾选为覆盖模式，不勾选为跳过模式"/>
+            <CheckBox Grid.Row="9" Content="重复文件上传策略 勾为覆盖，否跳过" Style="{DynamicResource MaterialDesignCheckBox}"
+                      Margin="5" Name="ChkUploadMode" ToolTip="勾选为覆盖，不勾选为跳过"/>
             <Button Content="上传到FTP服务器" Grid.Row="10" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
                     Margin="5" Name="BtnUpload" Click="BtnUpload_Click"/>
             <Button Content="查询服务器该ID已有图片" Grid.Row="11" Style="{DynamicResource MaterialDesignOutlinedLightButton}"

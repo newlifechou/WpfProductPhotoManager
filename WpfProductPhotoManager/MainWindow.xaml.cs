@@ -36,6 +36,9 @@ namespace WpfProductPhotoManager
 
             //加载已保存文件
             LoadWorkList();
+
+            //loadproductids
+            BtnImport_Click(this, null);
         }
 
         private PhotoService photoService;
@@ -57,7 +60,7 @@ namespace WpfProductPhotoManager
             categories.Add("Bonding");
             categories.Add("SecondMachine");
             categories.Add("BeforeDelivery");
-            categories.Add("Return");
+            categories.Add("CustomerReturn");
 
             CboCategory.ItemsSource = null;
             CboCategory.ItemsSource = categories;
@@ -326,12 +329,14 @@ namespace WpfProductPhotoManager
                 return;
             try
             {
+                BtnViewFTPFiles.IsEnabled = false;
                 var progress = new Progress<int>(p =>
                 {
                     PbProcess.Value = p;
                     if (PbProcess.Value == 100)
                     {
                         MessageBox.Show("下载结束");
+                        BtnViewFTPFiles.IsEnabled = true;
                     }
                 });
                 //ftpService.DownloadAllFiles(fileNames, progress);
@@ -339,6 +344,7 @@ namespace WpfProductPhotoManager
             }
             catch (Exception ex)
             {
+                BtnViewFTPFiles.IsEnabled = true;
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
