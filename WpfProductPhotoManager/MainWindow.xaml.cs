@@ -230,19 +230,25 @@ namespace WpfProductPhotoManager
             try
             {
                 BtnCopyAndReName.IsEnabled = false;
-                photoService.CopyPhoto(inputFiles);
 
+                var progress = new Progress<int>(p =>
+                {
+                    PbProcess.Value = p;
+                    if (PbProcess.Value == 100)
+                    {
+                        BtnCopyAndReName.IsEnabled = true;
+                        MessageBox.Show("规范化命名结束");
+                    }
+                });
+
+                Task.Run(() => photoService.CopyPhoto(inputFiles, progress));
             }
             catch (Exception ex)
             {
+                BtnCopyAndReName.IsEnabled = true;
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            finally
-            {
-                BtnCopyAndReName.IsEnabled = true;
-            }
             SetDgInputs();
-            MessageBox.Show("复制和规范重命名结束");
             SaveWorkList();
         }
 
@@ -264,22 +270,82 @@ namespace WpfProductPhotoManager
                         return;
                     }
                 }
-
+                var progress = new Progress<int>(p =>
+                {
+                    PbProcess.Value = p;
+                    if (PbProcess.Value == 100)
+                    {
+                        BtnUpload.IsEnabled = true;
+                        MessageBox.Show("上传结束");
+                    }
+                });
                 ftpService.OverrideMode = (bool)ChkUploadMode.IsChecked;
-                ftpService.UploadFiles(inputFiles);
-                MessageBox.Show("文件上传结束");
+                Task.Run(() => ftpService.UploadFiles(inputFiles, progress));
+            }
+            catch (Exception ex)
+            {
+                BtnUpload.IsEnabled = true;
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            SetDgInputs();
+            SaveWorkList();
+        }
+
+
+        private List<string> viewFileNames;
+        private void BtnViewFTPFiles_Click(object sender, RoutedEventArgs e)
+        {
+            if (LstProductIds.SelectedItem == null || string.IsNullOrEmpty(LstProductIds.SelectedItem.ToString()))
+            {
+                return;
+            }
+
+            try
+            {
+                BtnViewFTPFiles.IsEnabled = false;
+                string productid = LstProductIds.SelectedItem.ToString();
+                viewFileNames = ftpService.ListFiles(productid);
+                if (viewFileNames == null || viewFileNames.Count == 0)
+                {
+                    MessageBox.Show($"FTP服务器上没有找到ID为[{productid}]的任何照片");
+                    return;
+                }
+                var dialog = new PhotoList();
+                dialog.SetPhotoList(productid, viewFileNames);
+                dialog.DownloadAllFiles += Dialog_DownloadAllFiles;
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                BtnViewFTPFiles.IsEnabled = true;
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Dialog_DownloadAllFiles(object sender, EventArgs e)
+        {
+            if (viewFileNames == null || viewFileNames.Count == 0)
+                return;
+            try
+            {
+                var progress = new Progress<int>(p =>
+                {
+                    PbProcess.Value = p;
+                    if (PbProcess.Value == 100)
+                    {
+                        MessageBox.Show("下载结束");
+                        BtnViewFTPFiles.IsEnabled = true;
+                    }
+                });
+                //ftpService.DownloadAllFiles(fileNames, progress);
+                Task.Run(() => ftpService.DownloadAllFiles(viewFileNames, progress));
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            finally
-            {
-                BtnUpload.IsEnabled = true;
-            }
-            SetDgInputs();
-            SaveWorkList();
         }
+
 
         private void BtnOutputFolderSet_Click(object sender, RoutedEventArgs e)
         {
@@ -350,53 +416,6 @@ namespace WpfProductPhotoManager
             }
         }
 
-        private List<string> fileNames;
-        private void BtnViewFTPFiles_Click(object sender, RoutedEventArgs e)
-        {
-            if (LstProductIds.SelectedItem == null || string.IsNullOrEmpty(LstProductIds.SelectedItem.ToString()))
-            {
-                return;
-            }
-
-            try
-            {
-                BtnViewFTPFiles.IsEnabled = false;
-                string productid = LstProductIds.SelectedItem.ToString();
-                fileNames = ftpService.ListFiles(productid);
-                if (fileNames == null || fileNames.Count == 0)
-                {
-                    MessageBox.Show($"FTP服务器上没有找到ID为[{productid}]的任何照片");
-                    return;
-                }
-                var dialog = new PhotoList();
-                dialog.SetPhotoList(productid, fileNames);
-                dialog.DownloadAllFiles += Dialog_DownloadAllFiles;
-                dialog.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                BtnViewFTPFiles.IsEnabled = true;
-            }
-        }
-
-        private void Dialog_DownloadAllFiles(object sender, EventArgs e)
-        {
-            if (fileNames == null || fileNames.Count == 0)
-                return;
-            try
-            {
-                ftpService.DownloadAllFiles(fileNames);
-                MessageBox.Show("下载结束");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
 
     }
 }

@@ -43,14 +43,7 @@ namespace WpfProductPhotoManager.Services
             return inputFiles.Count(i => i.IsUploaded) > 0;
         }
 
-
-        public event EventHandler<string> LogProcessInfo;
-        private void OnLogProcessInfo(string log)
-        {
-            LogProcessInfo?.Invoke(this, log);
-        }
-
-        public void UploadFiles(List<InputFile> inputFiles)
+        public void UploadFiles(List<InputFile> inputFiles, IProgress<int> progress)
         {
             if (inputFiles == null || inputFiles.Count == 0)
                 return;
@@ -62,7 +55,8 @@ namespace WpfProductPhotoManager.Services
             {
                 client.CreateDirectory(serverFolder);
             }
-
+            int total = inputFiles.Count;
+            int current = 0;
             foreach (var item in inputFiles)
             {
 
@@ -91,7 +85,9 @@ namespace WpfProductPhotoManager.Services
                 client.UploadFile(item.NewFileName, remoteFilePath, remoteMode);
                 item.IsUploaded = true;
                 item.UploadError = msg;
-                OnLogProcessInfo(remoteFilePath);
+
+                current++;
+                progress.Report(current * 100 / total);
             }
             client.Disconnect();
         }
@@ -121,8 +117,10 @@ namespace WpfProductPhotoManager.Services
             return result;
         }
 
-        public void DownloadAllFiles(List<string> filenames)
+        public void DownloadAllFiles(List<string> filenames, IProgress<int> progress)
         {
+            if (filenames == null || filenames.Count == 0)
+                return;
             var client = new FtpClient(serverAddress, username, password);
             client.Encoding = Encoding.Default;
             client.AutoConnect();
@@ -136,12 +134,16 @@ namespace WpfProductPhotoManager.Services
                 Directory.CreateDirectory(outputFolder);
             }
 
+            int total = filenames.Count;
+            int current = 0;
             foreach (var item in filenames)
             {
                 string remoteFilePath = $"{serverFolder}/{item}";
                 string localFilePath = $"{outputFolder}\\{item}";
                 client.DownloadFile(localFilePath, remoteFilePath, FtpLocalExists.Overwrite);
-                OnLogProcessInfo(remoteFilePath);
+
+                current++;
+                progress.Report(current * 100 / total);
             }
 
             client.Disconnect();

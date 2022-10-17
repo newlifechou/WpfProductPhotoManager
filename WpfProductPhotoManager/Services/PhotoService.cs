@@ -61,13 +61,16 @@ namespace WpfProductPhotoManager.Services
             return files.Count(i => i.IsCopied) > 0;
         }
 
-        public void CopyPhoto(List<InputFile> files)
+        public void CopyPhoto(List<InputFile> files, IProgress<int> progress)
         {
             if (!Directory.Exists(outputFolder))
             {
                 Directory.CreateDirectory(outputFolder);
             }
             int count = 1;
+
+            int total = files.Count;
+            int current = 0;
             foreach (var item in files)
             {
                 var outputFileName = "";
@@ -94,6 +97,9 @@ namespace WpfProductPhotoManager.Services
 
                 item.IsUploaded = false;
                 item.UploadError = "";
+
+                current++;
+                progress.Report(current * 100 / total);
             }
 
             

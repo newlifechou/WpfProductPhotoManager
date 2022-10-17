@@ -19,6 +19,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid>
@@ -26,7 +27,7 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="请框选并拖动对应一组照片到下面工作列表中(.jpg或者.jpeg)" Style="{DynamicResource MaterialDesignCaptionTextBlock}"
+                <TextBlock Text="请框选并拖动对应一组照片到下面工作列表中(jpg或jpeg)" Style="{DynamicResource MaterialDesignCaptionTextBlock}"
                        Margin="5" Foreground="Green" VerticalAlignment="Center"/>
                 <StackPanel Orientation='Horizontal' HorizontalAlignment="Right" Grid.Column="1">
                     <Button Content="清空" Style="{DynamicResource MaterialDesignOutlinedButton}" Margin="5"
@@ -74,7 +75,9 @@
             </DataGrid>
             <TextBlock Grid.Row="2" Text="Tips" Style="{StaticResource MaterialDesignBody2TextBlock}" Padding="5"
                        Background="Yellow" Name="TxtTips" Visibility="Collapsed"/>
-            <Grid Grid.Row="3" Margin="5">
+            <ProgressBar Name="PbProcess" Grid.Row="3" Height="10" Value="0" Margin="2" Foreground="Green" 
+                         Background="White" Maximum="100" Style="{x:Null}"/>
+            <Grid Grid.Row="4" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition />
@@ -86,7 +89,7 @@
                         Margin="5 0 0 0" Name="BtnOutputPath" VerticalAlignment="Center" HorizontalAlignment="Left"
                         Grid.Column="1"
                         Click="BtnOutputPath_Click"/>
-                <materialDesign:Chip Content="共10项" Style="{StaticResource MaterialDesignOutlineChip}" Grid.Column="2"
+                <materialDesign:Chip Content="共0项" Style="{StaticResource MaterialDesignOutlineChip}" Grid.Column="2"
                                      Name="ChipTotalItems"/>
             </Grid>
         </Grid>
