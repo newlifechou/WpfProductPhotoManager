@@ -2,5 +2,13 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
+    <PublishUrlHistory>D:\Fine\source\publish\ClickOncePublish\PPM\|D:\Fine\source\publish\ClickOncePublish\ProductPhotoManager\|publish\</PublishUrlHistory>
+    <InstallUrlHistory>http://192.168.16.254:8001/PPM/|http://192.168.16.254:8001/ProductPhotoManager/|http://192.168.16.254:8001/PMSDogfood/</InstallUrlHistory>
+    <SupportUrlHistory>http://www.cdpmi.net</SupportUrlHistory>
+    <UpdateUrlHistory>http://192.168.16.254:8001/PPM/|http://192.168.16.254:8001/ProductPhotoManager/</UpdateUrlHistory>
+    <BootstrapperUrlHistory />
+    <ErrorReportUrlHistory />
+    <FallbackCulture>zh-CN</FallbackCulture>
+    <VerifyUploadedFiles>false</VerifyUploadedFiles>
   </PropertyGroup>
 </Project>
