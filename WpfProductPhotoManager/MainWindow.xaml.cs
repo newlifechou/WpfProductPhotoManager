@@ -238,6 +238,8 @@ namespace WpfProductPhotoManager
                     {
                         BtnCopyAndReName.IsEnabled = true;
                         MessageBox.Show("规范化命名结束");
+                        SetDgInputs();
+                        SaveWorkList();
                     }
                 });
 
@@ -248,8 +250,6 @@ namespace WpfProductPhotoManager
                 BtnCopyAndReName.IsEnabled = true;
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            SetDgInputs();
-            SaveWorkList();
         }
 
         private void BtnUpload_Click(object sender, RoutedEventArgs e)
@@ -277,6 +277,8 @@ namespace WpfProductPhotoManager
                     {
                         BtnUpload.IsEnabled = true;
                         MessageBox.Show("上传结束");
+                        SetDgInputs();
+                        SaveWorkList();
                     }
                 });
                 ftpService.OverrideMode = (bool)ChkUploadMode.IsChecked;
@@ -287,8 +289,6 @@ namespace WpfProductPhotoManager
                 BtnUpload.IsEnabled = true;
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            SetDgInputs();
-            SaveWorkList();
         }
 
 
