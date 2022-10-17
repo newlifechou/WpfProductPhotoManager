@@ -61,6 +61,16 @@ namespace WpfProductPhotoManager.Services
             return files.Count(i => i.IsCopied) > 0;
         }
 
+        public bool ExistSameLocalFiles()
+        {
+            if (!Directory.Exists(outputFolder))
+            {
+                return true;
+            }
+
+            return Directory.GetFiles(outputFolder, $"{outputFilePrefix}*").Length > 0;
+        }
+
         public void CopyPhoto(List<InputFile> files, IProgress<int> progress)
         {
             if (!Directory.Exists(outputFolder))
@@ -102,7 +112,7 @@ namespace WpfProductPhotoManager.Services
                 progress.Report(current * 100 / total);
             }
 
-            
+
         }
 
         public string[] GetRelatedPhotos(string productid)

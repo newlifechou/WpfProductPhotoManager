@@ -233,6 +233,15 @@ namespace WpfProductPhotoManager
                     return;
                 }
             }
+
+            if (photoService.ExistSameLocalFiles())
+            {
+                if (MessageBox.Show("工作目录中已存在同名文件,是否再次处理一遍?", "请问", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                {
+                    return;
+                }
+            }
+
             try
             {
                 BtnCopyAndReName.IsEnabled = false;
