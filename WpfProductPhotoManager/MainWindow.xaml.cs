@@ -38,7 +38,10 @@ namespace WpfProductPhotoManager
             LoadWorkList();
 
             //loadproductids
-            BtnImport_Click(this, null);
+            if (Properties.Settings.Default.loadpmsids)
+            {
+                BtnImport_Click(this, null);
+            }
         }
 
         private PhotoService photoService;

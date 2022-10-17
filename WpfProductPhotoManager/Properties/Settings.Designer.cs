@@ -94,5 +94,17 @@ namespace WpfProductPhotoManager.Properties {
                 this["outputfolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool loadpmsids {
+            get {
+                return ((bool)(this["loadpmsids"]));
+            }
+            set {
+                this["loadpmsids"] = value;
+            }
+        }
     }
 }
