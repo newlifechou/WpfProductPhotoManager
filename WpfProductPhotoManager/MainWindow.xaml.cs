@@ -44,6 +44,7 @@ namespace WpfProductPhotoManager
             }
 
             CbIsExperiementMode.IsChecked = Properties.Settings.Default.IsExperienmentMode;
+            TxtRemoteFolder.Text = $"使用{ftpService.SeverFolder}";
         }
 
         private PhotoService photoService;
@@ -462,16 +463,19 @@ namespace WpfProductPhotoManager
 
         private void CbIsExperiementMode_Checked(object sender, RoutedEventArgs e)
         {
-            if (CbIsExperiementMode.IsChecked == true)
-            {
-                ftpService.SeverFolder = Properties.Settings.Default.serverFolderTest;
-            }
-            else
-            {
-                ftpService.SeverFolder = Properties.Settings.Default.serverFolder;
-            }
-            Properties.Settings.Default.IsExperienmentMode = (bool)CbIsExperiementMode.IsChecked;
+
+            ftpService.SeverFolder = Properties.Settings.Default.serverFolderTest;
+            Properties.Settings.Default.IsExperienmentMode = true;
             Properties.Settings.Default.Save();
+            TxtRemoteFolder.Text = $"使用{ftpService.SeverFolder}";
+        }
+
+        private void CbIsExperiementMode_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ftpService.SeverFolder = Properties.Settings.Default.serverFolder;
+            Properties.Settings.Default.IsExperienmentMode = false;
+            Properties.Settings.Default.Save();
+            TxtRemoteFolder.Text = $"使用{ftpService.SeverFolder}";
         }
     }
 }
