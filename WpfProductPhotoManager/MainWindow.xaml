@@ -181,22 +181,24 @@
             <TextBlock Grid.Row="2" Style="{StaticResource MaterialDesignCaptionTextBlock}" Text="依次设置下面的ID,分类和关键词[可选]"
                        TextWrapping="WrapWithOverflow" Margin="5"/>
             <TextBox Grid.Row="3" Style="{StaticResource MaterialDesignOutlinedTextBox}" Padding="5" Margin="5"
-                     Name="TxtIDFilter" TextChanged="TxtIDFilter_TextChanged" ToolTip="筛选框"/>
+                     Name="TxtIDFilter" TextChanged="TxtIDFilter_TextChanged" ToolTip="筛选框"
+                     ToolTipService.InitialShowDelay="0"/>
             <ListBox Grid.Row="4" Style="{StaticResource MaterialDesignListBox}" Name="LstProductIds" SelectionChanged="LstProductIds_SelectionChanged"
                      BorderThickness="1" BorderBrush="Gray" Margin="5"/>
             <ComboBox Grid.Row="5" IsEditable="True" Style="{DynamicResource MaterialDesignComboBox}" Margin="5"
-                      Name="CboCategory" TextBoxBase.TextChanged="CboCategory_TextChanged" ToolTip="分类词">
+                      Name="CboCategory" TextBoxBase.TextChanged="CboCategory_TextChanged" ToolTip="分类词" ToolTipService.InitialShowDelay="0">
             </ComboBox>
             <ComboBox Grid.Row="6" IsEditable="True" Style="{DynamicResource MaterialDesignComboBox}" Margin="5"
-                      Name="CboKeyword" TextBoxBase.TextChanged="CboKeyword_TextChanged" ToolTip="关键词">
+                      Name="CboKeyword" TextBoxBase.TextChanged="CboKeyword_TextChanged" ToolTip="关键词" ToolTipService.InitialShowDelay="0">
             </ComboBox>
             <TextBlock Grid.Row="7" Text="新名称内容" Style="{DynamicResource MaterialDesignBody1TextBlock}"
-                       FontSize="15"
-                       Margin="5" Name="TxtCurrentOutputFileNamePrefix" FontWeight="Bold" ToolTip="当前名称前缀,格式为ID_类别_关键词[可选]"/>
+                       FontSize="15" Background="LightYellow"
+                       Margin="5" Name="TxtCurrentOutputFileNamePrefix" FontWeight="Bold" ToolTip="当前名称前缀,格式为ID_类别_关键词[可选]"
+                       ToolTipService.InitialShowDelay="0"/>
             <Button Content="规范化命名处理" Grid.Row="8" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
                     Margin="5" Name="BtnCopyAndReName" Click="BtnCopyAndReName_Click"/>
             <CheckBox Grid.Row="9" Content="重复文件上传策略 勾为覆盖，否跳过" Style="{DynamicResource MaterialDesignCheckBox}"
-                      Margin="5" Name="ChkUploadMode" ToolTip="勾选为覆盖，不勾选为跳过"/>
+                      Margin="5" Name="ChkUploadMode" ToolTip="勾选为覆盖，不勾选为跳过"  ToolTipService.InitialShowDelay="0"/>
             <Button Content="上传到FTP服务器" Grid.Row="10" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
                     Margin="5" Name="BtnUpload" Click="BtnUpload_Click"/>
             <Button Content="查询服务器该ID已有图片" Grid.Row="11" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
