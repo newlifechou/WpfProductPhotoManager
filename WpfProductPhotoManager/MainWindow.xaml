@@ -88,9 +88,8 @@
                     <DataGridTextColumn Header="上传结果" Binding="{Binding UploadError}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <ListBox Name="LstImageInputs"
-                     ItemsSource="{Binding ElementName=DgInputs,Path=ItemsSource}"
-                      Grid.Row="2" VirtualizingPanel.IsVirtualizing="True">
+            <ListBox Name="LstImageInputs" VirtualizingPanel.IsVirtualizing="True"
+                     Grid.Row="2">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation='Horizontal' IsItemsHost="True" 
@@ -100,9 +99,8 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border BorderThickness="1" BorderBrush="Gray"
-                                Height="80" Width="100">
-                            <Image Stretch="UniformToFill"
-                                   Source="{Binding CacheImageFile}"
+                                Height="80" Width="100" Margin="0">
+                            <Image Source="{Binding CacheImageFile}"
                                    ToolTip="{Binding DisplayFileName}" ToolTipService.InitialShowDelay="0"/>
                         </Border>
                     </DataTemplate>

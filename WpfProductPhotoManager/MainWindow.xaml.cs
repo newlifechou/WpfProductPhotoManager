@@ -150,12 +150,15 @@ namespace WpfProductPhotoManager
                 return;
             }
 
+
             //批量产生缩略图
             ImageService.GenerateThumbnails(inputFiles);
 
             inputFiles = inputFiles.OrderBy(i => i.DisplayFileName).ToList();
             DgInputs.ItemsSource = null;
             DgInputs.ItemsSource = inputFiles;
+
+            LstImageInputs.ItemsSource = inputFiles;
 
             ChipTotalItems.Content = $"共{inputFiles.Count}项";
             TxtTips.Visibility = Visibility.Collapsed;

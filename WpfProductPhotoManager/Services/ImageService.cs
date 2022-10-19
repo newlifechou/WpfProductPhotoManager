@@ -47,7 +47,8 @@ namespace WpfProductPhotoManager.Services
                 Image img = Image.FromFile(item.OrignalFileName);
                 Image thumbnail = img.GetThumbnailImage(100, 80, () => true, IntPtr.Zero);
                 thumbnail.Save(saveFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-
+                img.Dispose();
+                thumbnail.Dispose();
             }
         }
 
