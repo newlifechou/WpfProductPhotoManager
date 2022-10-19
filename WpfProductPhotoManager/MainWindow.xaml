@@ -148,7 +148,7 @@
                 <Button Name="BtnClearCache" Click="BtnClearCache_Click" Grid.Column="5"                           
                         Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="Transparent"
                             BorderBrush="LightGray"
-                            Margin="5" Height="32" Width="32">
+                            Margin="5" Height="32" Width="32" Visibility="Collapsed">
                     <Button.Content>
                         <materialDesign:PackIcon
                                 Kind="Cached"
