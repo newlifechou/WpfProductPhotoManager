@@ -150,11 +150,17 @@ namespace WpfProductPhotoManager
                 return;
             }
 
+            //批量产生缩略图
+            ImageService.GenerateThumbnails(inputFiles);
+
             inputFiles = inputFiles.OrderBy(i => i.DisplayFileName).ToList();
             DgInputs.ItemsSource = null;
             DgInputs.ItemsSource = inputFiles;
+
             ChipTotalItems.Content = $"共{inputFiles.Count}项";
             TxtTips.Visibility = Visibility.Collapsed;
+
+
         }
 
         private void BtnScan_Click(object sender, RoutedEventArgs e)
@@ -476,6 +482,41 @@ namespace WpfProductPhotoManager
             Properties.Settings.Default.IsExperienmentMode = false;
             Properties.Settings.Default.Save();
             TxtRemoteFolder.Text = $"使用{ftpService.SeverFolder}";
+        }
+
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var selectItem = DgInputs.SelectedItem as InputFile;
+            inputFiles.Remove(selectItem);
+            SetDgInputs();
+        }
+
+        private void BtnOpenRootFolder_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(Environment.CurrentDirectory);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnClearCache_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("确定清空缓存?", "请问", MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes)
+            {
+                string cacheFolder = System.IO.Path.Combine(Environment.CurrentDirectory, "caches");
+                try
+                {
+                    Directory.Delete(cacheFolder, true);
+                }
+                catch (Exception)
+                {
+
+                }
+            }
         }
     }
 }

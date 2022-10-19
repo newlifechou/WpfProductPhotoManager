@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Icon="pictures.png"
-        Title="产品照片管理器 v1.0 designed by xszhou" Height="800" Width="1200"
+        Title="产品照片管理器 v1.5 designed by xszhou" Height="800" Width="1200"
         WindowStartupLocation="CenterScreen">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -17,7 +17,8 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="auto"/>
@@ -51,6 +52,16 @@
                     Grid.Row="1" Name="DgInputs" IsReadOnly="True" AutoGenerateColumns="False" BorderThickness="1" Margin="2"
                       SelectionMode="Extended">
                 <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="移除" Margin="0" Padding="10 0" Height="16"
+                                        FontSize="12"
+                                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                                        Name="BtnDelete" Click="BtnDelete_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <!--<DataGridTextColumn Header="原始文件名称" Binding="{Binding DisplayFileName}" Width="150"/>-->
                     <DataGridTemplateColumn Header="原始文件名称" Width="150">
                         <DataGridTemplateColumn.CellTemplate>
@@ -58,6 +69,7 @@
                                 <TextBlock Text="{Binding DisplayFileName}" ToolTipService.ShowDuration="5000"
                                            ToolTipService.InitialShowDelay="0"
                                            ToolTipService.Placement="Right"
+                                           VerticalAlignment="Center"
                                            HorizontalAlignment="Stretch" Background="LightYellow">
                                     <TextBlock.ToolTip>
                                         <Border BorderBrush="Gray" BorderThickness="1">
@@ -76,14 +88,36 @@
                     <DataGridTextColumn Header="上传结果" Binding="{Binding UploadError}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBlock Grid.Row="2" Text="Tips" Style="{StaticResource MaterialDesignBody2TextBlock}" Padding="5"
+            <ListBox Name="LstImageInputs"
+                     ItemsSource="{Binding ElementName=DgInputs,Path=ItemsSource}"
+                      Grid.Row="2" VirtualizingPanel.IsVirtualizing="True">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation='Horizontal' IsItemsHost="True" 
+                                   ScrollViewer.CanContentScroll="True"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" BorderBrush="Gray"
+                                Height="80" Width="100">
+                            <Image Stretch="UniformToFill"
+                                   Source="{Binding CacheImageFile}"
+                                   ToolTip="{Binding DisplayFileName}" ToolTipService.InitialShowDelay="0"/>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBlock Grid.Row="3" Text="Tips" Style="{StaticResource MaterialDesignBody2TextBlock}" Padding="5"
                        Background="Yellow" Name="TxtTips" Visibility="Collapsed"/>
-            <ProgressBar Name="PbProcess" Grid.Row="3" Height="10" Value="0" Margin="2" Foreground="Green" 
+            <ProgressBar Name="PbProcess" Grid.Row="4" Height="10" Value="0" Margin="2" Foreground="Green" 
                          Background="White" Maximum="100" Style="{x:Null}"/>
-            <Grid Grid.Row="4" Margin="5">
+            <Grid Grid.Row="5" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
@@ -94,13 +128,37 @@
                         Grid.Column="1"
                         Click="BtnOutputPath_Click"/>
                 <StackPanel Orientation="Horizontal" Grid.Column="2">
+                    <TextBlock Text="使用试验文件夹" Style="{x:Null}" VerticalAlignment="Center" Name="TxtRemoteFolder"/>
                     <ToggleButton Name="CbIsExperiementMode" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="使用FTP试验文件夹Z_Test"
                                   Checked="CbIsExperiementMode_Checked" IsChecked="False"
                                   Unchecked="CbIsExperiementMode_Unchecked"/>
-                    <TextBlock Text="使用试验文件夹" Style="{x:Null}" VerticalAlignment="Center" Name="TxtRemoteFolder"/>
                 </StackPanel>
                 <materialDesign:Chip Content="共0项" Style="{StaticResource MaterialDesignOutlineChip}" Grid.Column="3"
                                      Name="ChipTotalItems"/>
+                <Button Name="BtnOpenRootFolder" Grid.Column="4" Click="BtnOpenRootFolder_Click"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="Transparent"
+                            BorderBrush="LightGray"
+                            Margin="5" Height="32" Width="32">
+                    <Button.Content>
+                        <materialDesign:PackIcon
+                                Kind="Star"
+                                Height="20"
+                                Width="20"
+                                Foreground="LightGray"/>
+                    </Button.Content>
+                </Button>
+                <Button Name="BtnClearCache" Click="BtnClearCache_Click" Grid.Column="5"                           
+                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="Transparent"
+                            BorderBrush="LightGray"
+                            Margin="5" Height="32" Width="32">
+                    <Button.Content>
+                        <materialDesign:PackIcon
+                                Kind="Cached"
+                                Height="20"
+                                Width="20"
+                                Foreground="LightGray"/>
+                    </Button.Content>
+                </Button>
             </Grid>
         </Grid>
         <Grid Grid.Column="1">
@@ -135,6 +193,7 @@
                       Name="CboKeyword" TextBoxBase.TextChanged="CboKeyword_TextChanged" ToolTip="关键词">
             </ComboBox>
             <TextBlock Grid.Row="7" Text="新名称内容" Style="{DynamicResource MaterialDesignBody1TextBlock}"
+                       FontSize="15"
                        Margin="5" Name="TxtCurrentOutputFileNamePrefix" FontWeight="Bold" ToolTip="当前名称前缀,格式为ID_类别_关键词[可选]"/>
             <Button Content="规范化命名处理" Grid.Row="8" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
                     Margin="5" Name="BtnCopyAndReName" Click="BtnCopyAndReName_Click"/>

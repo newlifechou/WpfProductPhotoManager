@@ -16,6 +16,8 @@ namespace WpfProductPhotoManager.Models
         public string OrignalFileName { get; set; }
 
         public string DisplayFileName { get; set; }
+
+        public string CacheImageFile { get; set; }
         public DateTime CreatedTime { get; set; }
         public bool IsCopied { get; set; }
         public string CopyError { get; set; }
