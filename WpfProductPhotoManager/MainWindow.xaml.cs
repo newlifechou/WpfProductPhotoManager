@@ -244,6 +244,7 @@ namespace WpfProductPhotoManager
             {
                 if (MessageBox.Show("工作列表中有文件已被处理,是否再次处理?", "请问", MessageBoxButton.YesNo) == MessageBoxResult.No)
                 {
+                    BtnCopyAndReName.IsEnabled = true;
                     return;
                 }
             }
@@ -252,6 +253,7 @@ namespace WpfProductPhotoManager
             {
                 if (MessageBox.Show("工作目录中已存在同名文件,是否再次处理一遍?", "请问", MessageBoxButton.YesNo) == MessageBoxResult.No)
                 {
+                    BtnCopyAndReName.IsEnabled = true;
                     return;
                 }
             }
@@ -296,6 +298,7 @@ namespace WpfProductPhotoManager
                 {
                     if (MessageBox.Show("工作列表中有文件已被上传,是否再次上传?", "请问", MessageBoxButton.YesNo) == MessageBoxResult.No)
                     {
+                        BtnUpload.IsEnabled = true;
                         return;
                     }
                 }
