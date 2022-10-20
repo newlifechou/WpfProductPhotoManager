@@ -80,6 +80,7 @@ namespace WpfProductPhotoManager
             keywords.Add("DJY");
             keywords.Add("YMTC");
             keywords.Add("HW");
+            keywords.Add("PS");
 
             CboKeyword.ItemsSource = null;
             CboKeyword.ItemsSource = keywords;
