@@ -137,7 +137,7 @@ namespace WpfProductPhotoManager
                 inputFile.OrignalFileName = file;
                 inputFile.DisplayFileName = System.IO.Path.GetFileName(file);
                 inputFile.CreatedTime = File.GetCreationTime(file);
-
+                inputFile.FileSize = (double)(new FileInfo(file).Length / 1024.0 / 1024.0);
                 inputFiles.Add(inputFile);
             }
             SetDgInputs();

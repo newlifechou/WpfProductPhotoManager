@@ -80,6 +80,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="大小" Binding="{Binding FileSize,StringFormat={}{0:F2}MB}"/>
                     <DataGridTextColumn Header="创建时间" Binding="{Binding CreatedTime,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"/>
                     <DataGridCheckBoxColumn Header="已复制" Binding="{Binding IsCopied}"/>
                     <DataGridTextColumn Header="复制结果" Binding="{Binding CopyError}"/>
