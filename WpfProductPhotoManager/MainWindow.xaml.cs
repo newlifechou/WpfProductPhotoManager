@@ -275,7 +275,8 @@ namespace WpfProductPhotoManager
                     }
                 });
 
-                Task.Run(() => photoService.CopyPhoto(inputFiles, progress));
+                bool addMark = (bool)ChkAddMark.IsChecked;
+                Task.Run(() => photoService.CopyPhoto(inputFiles, progress, addMark));
             }
             catch (Exception ex)
             {

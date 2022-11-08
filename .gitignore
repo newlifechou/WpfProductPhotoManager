@@ -1,4 +1,5 @@
 packages
+.vs\
 WpfProductPhotoManager/bin
 WpfProductPhotoManager/obj
 WpfProductPhotoManagerTests/bin

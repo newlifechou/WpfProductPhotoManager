@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Icon="pictures.png"
-        Title="产品照片管理器 v1.5 designed by xszhou" Height="800" Width="1200"
+        Title="产品照片管理器 v1.6 designed by xszhou" Height="800" Width="1200"
         WindowStartupLocation="CenterScreen">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -170,6 +170,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -196,13 +197,16 @@
                        FontSize="15" Background="LightYellow"
                        Margin="5" Name="TxtCurrentOutputFileNamePrefix" FontWeight="Bold" ToolTip="当前名称前缀,格式为ID_类别_关键词[可选]"
                        ToolTipService.InitialShowDelay="0"/>
-            <Button Content="规范化命名处理" Grid.Row="8" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
+            <CheckBox Grid.Row="8" Content="添加ID和成分标记到照片顶部" Style="{DynamicResource MaterialDesignCheckBox}"
+                      Margin="5" Name="ChkAddMark" ToolTip="添加ID和成分标记"  ToolTipService.InitialShowDelay="0"
+                      IsChecked="True"/>
+            <Button Content="规范化命名处理" Grid.Row="9" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
                     Margin="5" Name="BtnCopyAndReName" Click="BtnCopyAndReName_Click"/>
-            <CheckBox Grid.Row="9" Content="重复文件上传策略 勾为覆盖，否跳过" Style="{DynamicResource MaterialDesignCheckBox}"
+            <CheckBox Grid.Row="10" Content="重复文件上传策略 勾为覆盖，否跳过" Style="{DynamicResource MaterialDesignCheckBox}"
                       Margin="5" Name="ChkUploadMode" ToolTip="勾选为覆盖，不勾选为跳过"  ToolTipService.InitialShowDelay="0"/>
-            <Button Content="上传到FTP服务器" Grid.Row="10" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
+            <Button Content="上传到FTP服务器" Grid.Row="11" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
                     Margin="5" Name="BtnUpload" Click="BtnUpload_Click"/>
-            <Button Content="查询服务器该ID已有图片" Grid.Row="11" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
+            <Button Content="查询服务器该ID已有图片" Grid.Row="12" Style="{DynamicResource MaterialDesignOutlinedLightButton}"
                     Margin="5" Name="BtnViewFTPFiles" Click="BtnViewFTPFiles_Click"/>
         </Grid>
     </Grid>
